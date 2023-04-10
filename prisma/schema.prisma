@@ -1,0 +1,33 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Invoice {
+  id        String    @id @default(cuid())
+  title     String
+  type      Type      @relation(fields: [typeId], references: [id])
+  typeId    String
+  account   Account   @relation(fields: [accountId], references: [id])
+  accountId String
+  amount    Float
+  datetime  DateTime? @default(now())
+  status    String
+}
+
+model Account {
+  id      String    @id @default(cuid())
+  name    String
+  funds   Float
+  Invoice Invoice[]
+}
+
+model Type {
+  id      String    @id @default(cuid())
+  name    String
+  Invoice Invoice[]
+}
