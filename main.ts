@@ -12,7 +12,7 @@ function main() {
     app.use(express.json(), invoice.router)
 
     // 应用启动
-    app.listen(8000)
+    app.listen(8000, "127.0.0.1")
 }
 
 main()

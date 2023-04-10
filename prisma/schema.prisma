@@ -3,6 +3,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:financial_accounting.db"
+// }
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,13 +21,15 @@ model Invoice {
   accountId String
   amount    Float
   datetime  DateTime? @default(now())
-  status    String
+  status    String?
 }
 
 model Account {
   id      String    @id @default(cuid())
   name    String
-  funds   Float
+  number  String?
+  type    String
+  funds   Float?
   Invoice Invoice[]
 }
 

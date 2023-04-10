@@ -68,6 +68,16 @@ async function ReadAccountWithFuzzy(req: express.Request<any, any, any, ReadAcco
                         contains: query.key
                     }
                 },
+                {
+                    number: {
+                        contains: query.key
+                    }
+                },
+                {
+                    type: {
+                        contains: query.key
+                    }
+                },
             ]
         },
     }).then(function (resp) {
@@ -89,6 +99,16 @@ async function ReadAccountWithPaginationAndFuzzy(req: express.Request<any, any, 
             OR: [
                 {
                     name: {
+                        contains: query.key
+                    }
+                },
+                {
+                    number: {
+                        contains: query.key
+                    }
+                },
+                {
+                    type: {
                         contains: query.key
                     }
                 },

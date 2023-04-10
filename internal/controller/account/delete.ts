@@ -2,8 +2,7 @@ import {PrismaClient} from "@prisma/client"
 import express from "express"
 
 interface DeleteAccountQuery {
-    id?: string
-    name?: string
+    id: string
 }
 
 async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQuery>, res: express.Response, next: express.NextFunction) {
@@ -15,9 +14,6 @@ async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQu
             OR: [
                 {
                     id: query.id
-                },
-                {
-                    name: query.name
                 }
             ]
         },

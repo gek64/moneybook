@@ -8,6 +8,8 @@ async function CreateAccount(req: express.Request<any, any, Account, any>, res: 
     await prisma.account.create({
         data: {
             name: body.name,
+            number: body.number,
+            type: body.type,
             funds: body.funds,
         }
     }).then(function (resp) {

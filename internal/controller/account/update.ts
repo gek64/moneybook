@@ -11,6 +11,8 @@ async function UpdateAccount(req: express.Request<any, any, Account, any>, res: 
         },
         data: {
             name: body.name,
+            number: body.number,
+            type: body.type,
             funds: body.funds,
         }
     }).then(function (resp) {
