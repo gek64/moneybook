@@ -32,6 +32,21 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
                 }
             ]
         },
+        include: {
+            type: {
+                select: {
+                    name: true
+                }
+            },
+            account: {
+                select: {
+                    name: true,
+                    number: true,
+                    type: true,
+                    funds: true
+                }
+            }
+        }
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
@@ -48,6 +63,21 @@ async function ReadInvoiceWithPagination(req: express.Request<any, any, any, Rea
     await prisma.invoice.findMany({
         skip: Number(query.skip),
         take: Number(query.take),
+        include: {
+            type: {
+                select: {
+                    name: true
+                }
+            },
+            account: {
+                select: {
+                    name: true,
+                    number: true,
+                    type: true,
+                    funds: true
+                }
+            }
+        }
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
@@ -60,6 +90,8 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
     const query = req.query
     const prisma = new PrismaClient()
 
+    // 多表关联查询 https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries
+    // 查询结果包含拼接的关联表
     await prisma.invoice.findMany({
         where: {
             OR: [
@@ -68,7 +100,7 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
                         name: {
                             contains: query.key
                         }
-                    },
+                    }
                 },
                 {
                     account: {
@@ -86,8 +118,23 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
                     status: {
                         contains: query.key
                     }
-                },
+                }
             ]
+        },
+        include: {
+            type: {
+                select: {
+                    name: true
+                }
+            },
+            account: {
+                select: {
+                    name: true,
+                    number: true,
+                    type: true,
+                    funds: true
+                }
+            }
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -132,6 +179,21 @@ async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, 
                 },
             ]
         },
+        include: {
+            type: {
+                select: {
+                    name: true
+                }
+            },
+            account: {
+                select: {
+                    name: true,
+                    number: true,
+                    type: true,
+                    funds: true
+                }
+            }
+        }
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
