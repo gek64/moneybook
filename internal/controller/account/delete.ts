@@ -5,6 +5,10 @@ interface DeleteAccountQuery {
     id: string
 }
 
+interface DeleteManyAccountQuery {
+    ids: string[]
+}
+
 async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient()
@@ -24,6 +28,24 @@ async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQu
     })
 }
 
+async function DeleteManyAccount(req: express.Request<any, any, any, DeleteManyAccountQuery>, res: express.Response, next: express.NextFunction) {
+    const query = req.query
+    const prisma = new PrismaClient()
+
+    await prisma.account.deleteMany({
+        where: {
+            id: {
+                in: query.ids
+            }
+        },
+    }).then(function (resp) {
+        res.status(200).json(resp)
+    }).catch(function (err) {
+        res.status(403).type("text/plain").send(err.toString())
+    })
+}
+
 export {
-    DeleteAccount
+    DeleteAccount,
+    DeleteManyAccount
 }

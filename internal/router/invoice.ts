@@ -1,7 +1,7 @@
 import express from "express"
 import {CreateInvoice} from "../controller/invoice/create"
 import {UpdateInvoice} from "../controller/invoice/update"
-import {DeleteInvoice} from "../controller/invoice/delete"
+import {DeleteInvoice, DeleteManyInvoice} from "../controller/invoice/delete"
 import {
     ReadInvoiceById,
     ReadInvoiceWithFuzzy,
@@ -25,6 +25,7 @@ router.get("/invoice/paginationAndFuzzy", ReadInvoiceWithPaginationAndFuzzy)
 
 // 删除账单
 router.delete("/invoice", DeleteInvoice)
+router.delete("/invoice/many", DeleteManyInvoice)
 
 export {
     router

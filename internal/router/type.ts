@@ -1,7 +1,7 @@
 import express from "express"
 import {CreateType} from "../controller/type/create"
 import {UpdateType} from "../controller/type/update"
-import {DeleteType} from "../controller/type/delete"
+import {DeleteManyType, DeleteType} from "../controller/type/delete"
 import {
     ReadTypeById,
     ReadTypeWithFuzzy,
@@ -25,6 +25,7 @@ router.get("/type/paginationAndFuzzy", ReadTypeWithPaginationAndFuzzy)
 
 // 删除类型
 router.delete("/type", DeleteType)
+router.delete("/type/many", DeleteManyType)
 
 export {
     router

@@ -1,7 +1,7 @@
 import express from "express"
 import {CreateAccount} from "../controller/account/create"
 import {UpdateAccount} from "../controller/account/update"
-import {DeleteAccount} from "../controller/account/delete"
+import {DeleteAccount, DeleteManyAccount} from "../controller/account/delete"
 import {
     ReadAccountById,
     ReadAccountWithFuzzy,
@@ -25,6 +25,7 @@ router.get("/account/paginationAndFuzzy", ReadAccountWithPaginationAndFuzzy)
 
 // 删除账户
 router.delete("/account", DeleteAccount)
+router.delete("/account/many", DeleteManyAccount)
 
 export {
     router
