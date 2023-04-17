@@ -39,6 +39,18 @@ async function ReadTypeById(req: express.Request<any, any, any, ReadTypeByIdQuer
     })
 }
 
+// 查询所有类型
+async function ReadAllType(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+    const prisma = new PrismaClient()
+
+    await prisma.type.findMany({})
+        .then(function (resp) {
+            res.status(200).json(resp)
+        }).catch(function (err) {
+            res.status(403).type("text/plain").send(err.toString())
+        })
+}
+
 // 分页查询所有类型
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadTypeWithPagination(req: express.Request<any, any, any, ReadTypeWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
@@ -103,6 +115,7 @@ async function ReadTypeWithPaginationAndFuzzy(req: express.Request<any, any, any
 
 export {
     ReadTypeById,
+    ReadAllType,
     ReadTypeWithPagination,
     ReadTypeWithFuzzy,
     ReadTypeWithPaginationAndFuzzy,

@@ -54,6 +54,18 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
     })
 }
 
+// 查询所有账单
+async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+    const prisma = new PrismaClient()
+
+    await prisma.invoice.findMany({})
+        .then(function (resp) {
+            res.status(200).json(resp)
+        }).catch(function (err) {
+            res.status(403).type("text/plain").send(err.toString())
+        })
+}
+
 // 分页查询所有账单
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadInvoiceWithPagination(req: express.Request<any, any, any, ReadInvoiceWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
@@ -203,6 +215,7 @@ async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, 
 
 export {
     ReadInvoiceById,
+    ReadAllInvoice,
     ReadInvoiceWithPagination,
     ReadInvoiceWithFuzzy,
     ReadInvoiceWithPaginationAndFuzzy,

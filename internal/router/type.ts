@@ -3,6 +3,7 @@ import {CreateType} from "../controller/type/create"
 import {UpdateType} from "../controller/type/update"
 import {DeleteManyType, DeleteType} from "../controller/type/delete"
 import {
+    ReadAllType,
     ReadTypeById,
     ReadTypeWithFuzzy,
     ReadTypeWithPagination,
@@ -19,6 +20,7 @@ router.put("/type", UpdateType)
 
 // 查询类型
 router.get("/type", ReadTypeById)
+router.get("/type/all", ReadAllType)
 router.get("/type/pagination", ReadTypeWithPagination)
 router.get("/type/fuzzy", ReadTypeWithFuzzy)
 router.get("/type/paginationAndFuzzy", ReadTypeWithPaginationAndFuzzy)

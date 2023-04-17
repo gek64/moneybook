@@ -6,7 +6,8 @@ import {
     ReadAccountById,
     ReadAccountWithFuzzy,
     ReadAccountWithPagination,
-    ReadAccountWithPaginationAndFuzzy
+    ReadAccountWithPaginationAndFuzzy,
+    ReadAllAccount
 } from "../controller/account/read"
 
 const router = express.Router()
@@ -19,6 +20,7 @@ router.put("/account", UpdateAccount)
 
 // 查询账户
 router.get("/account", ReadAccountById)
+router.get("/account/all", ReadAllAccount)
 router.get("/account/pagination", ReadAccountWithPagination)
 router.get("/account/fuzzy", ReadAccountWithFuzzy)
 router.get("/account/paginationAndFuzzy", ReadAccountWithPaginationAndFuzzy)

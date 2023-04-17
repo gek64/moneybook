@@ -3,6 +3,7 @@ import {CreateInvoice} from "../controller/invoice/create"
 import {UpdateInvoice} from "../controller/invoice/update"
 import {DeleteInvoice, DeleteManyInvoice} from "../controller/invoice/delete"
 import {
+    ReadAllInvoice,
     ReadInvoiceById,
     ReadInvoiceWithFuzzy,
     ReadInvoiceWithPagination,
@@ -19,6 +20,7 @@ router.put("/invoice", UpdateInvoice)
 
 // 查询账单
 router.get("/invoice", ReadInvoiceById)
+router.get("/invoice/all", ReadAllInvoice)
 router.get("/invoice/pagination", ReadInvoiceWithPagination)
 router.get("/invoice/fuzzy", ReadInvoiceWithFuzzy)
 router.get("/invoice/paginationAndFuzzy", ReadInvoiceWithPaginationAndFuzzy)

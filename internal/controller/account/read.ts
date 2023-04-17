@@ -39,6 +39,18 @@ async function ReadAccountById(req: express.Request<any, any, any, ReadAccountBy
     })
 }
 
+// 查询所有用户
+async function ReadAllAccount(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+    const prisma = new PrismaClient()
+
+    await prisma.account.findMany({})
+        .then(function (resp) {
+            res.status(200).json(resp)
+        }).catch(function (err) {
+            res.status(403).type("text/plain").send(err.toString())
+        })
+}
+
 // 分页查询所有账户
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadAccountWithPagination(req: express.Request<any, any, any, ReadAccountWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
@@ -123,6 +135,7 @@ async function ReadAccountWithPaginationAndFuzzy(req: express.Request<any, any, 
 
 export {
     ReadAccountById,
+    ReadAllAccount,
     ReadAccountWithPagination,
     ReadAccountWithFuzzy,
     ReadAccountWithPaginationAndFuzzy,
