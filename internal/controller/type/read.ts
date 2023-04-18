@@ -24,7 +24,7 @@ async function ReadTypeById(req: express.Request<any, any, any, ReadTypeByIdQuer
     const query = req.query
     const prisma = new PrismaClient()
 
-    await prisma.type.findMany({
+    await prisma.type.findFirst({
         where: {
             OR: [
                 {

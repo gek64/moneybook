@@ -24,7 +24,7 @@ async function ReadAccountById(req: express.Request<any, any, any, ReadAccountBy
     const query = req.query
     const prisma = new PrismaClient()
 
-    await prisma.account.findMany({
+    await prisma.account.findFirst({
         where: {
             OR: [
                 {

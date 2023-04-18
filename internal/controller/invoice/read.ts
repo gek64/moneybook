@@ -24,7 +24,7 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
     const query = req.query
     const prisma = new PrismaClient()
 
-    await prisma.invoice.findMany({
+    await prisma.invoice.findFirst({
         where: {
             OR: [
                 {
@@ -33,19 +33,23 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
             ]
         },
         include: {
-            type: {
-                select: {
-                    name: true
-                }
-            },
-            account: {
-                select: {
-                    name: true,
-                    number: true,
-                    type: true,
-                    funds: true
-                }
-            }
+            // 选择部分字段
+            // type: {
+            //     select: {
+            //         name: true
+            //     }
+            // },
+            // account: {
+            //     select: {
+            //         name: true,
+            //         number: true,
+            //         type: true,
+            //         funds: true
+            //     }
+            // }
+            // 选择所有字段
+            type: true,
+            account: true
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -58,7 +62,12 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
 async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
     const prisma = new PrismaClient()
 
-    await prisma.invoice.findMany({})
+    await prisma.invoice.findMany({
+        include: {
+            type: true,
+            account: true
+        }
+    })
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
@@ -76,19 +85,8 @@ async function ReadInvoiceWithPagination(req: express.Request<any, any, any, Rea
         skip: Number(query.skip),
         take: Number(query.take),
         include: {
-            type: {
-                select: {
-                    name: true
-                }
-            },
-            account: {
-                select: {
-                    name: true,
-                    number: true,
-                    type: true,
-                    funds: true
-                }
-            }
+            type: true,
+            account: true
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -134,19 +132,8 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
             ]
         },
         include: {
-            type: {
-                select: {
-                    name: true
-                }
-            },
-            account: {
-                select: {
-                    name: true,
-                    number: true,
-                    type: true,
-                    funds: true
-                }
-            }
+            type: true,
+            account: true
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -192,19 +179,8 @@ async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, 
             ]
         },
         include: {
-            type: {
-                select: {
-                    name: true
-                }
-            },
-            account: {
-                select: {
-                    name: true,
-                    number: true,
-                    type: true,
-                    funds: true
-                }
-            }
+            type: true,
+            account: true
         }
     }).then(function (resp) {
         res.status(200).json(resp)
