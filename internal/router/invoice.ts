@@ -9,6 +9,7 @@ import {
     ReadInvoiceWithPagination,
     ReadInvoiceWithPaginationAndFuzzy
 } from "../controller/invoice/read"
+import {PatchManyInvoicesStatus} from "../controller/invoice/patch"
 
 const router = express.Router()
 
@@ -17,6 +18,9 @@ router.post("/invoice", CreateInvoice)
 
 // 修改账单
 router.put("/invoice", UpdateInvoice)
+
+// 局部修改账单
+router.patch("/invoice/many/status", PatchManyInvoicesStatus)
 
 // 查询账单
 router.get("/invoice", ReadInvoiceById)
