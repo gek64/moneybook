@@ -18,7 +18,7 @@ function main() {
     app.use(invoice.router)
 
     // 应用启动
-    app.listen(8000, "127.0.0.1")
+    app.listen(8000, "0.0.0.0")
 }
 
 main()
