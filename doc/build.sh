@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 npm -i
-more .env.example .env
+more .env.example > .env
 tsc
 
 rm -rf node_modules/.prisma
