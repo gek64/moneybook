@@ -1,0 +1,75 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'version'
+        required: false
+        default: 'latest'
+        # use ${{ github.event.inputs.version }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: "latest"
+
+      - name: Build
+        run: |
+          bash doc/build.sh
+
+          # 显示文件路径(debug)
+          # ls .. -R -las
+
+          # 获取sha256 checksum
+          sha256sum dist/* > bin/SHA256SUMS.txt
+
+          # 获取版本信息
+          echo ${{ github.event.inputs.version }} > dist/version.txt
+
+      - name: Remove old Releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 0
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_files
+          path: dist/*
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build_files
+          path: dist
+
+      - name: Read version
+        run: |
+          # 获取版本信息
+          echo "VERSION=$(cat dist/version.txt)" >> $GITHUB_ENV
+          rm -rf dist/version.txt
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          tag: ${{ env.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
