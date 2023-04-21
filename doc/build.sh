@@ -3,6 +3,7 @@
 npm install
 mkdir -p dist
 more .env.example > .env
+export PATH=$PATH:node_modules/.bin/
 tsc
 
 rm -rf node_modules/.prisma
