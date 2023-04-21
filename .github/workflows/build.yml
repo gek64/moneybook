@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.2
@@ -30,9 +30,6 @@ jobs:
 
           # 获取sha256 checksum
           sha256sum dist/* > dist/SHA256SUMS.txt
-
-          # 获取版本信息
-          echo ${{ github.event.inputs.version }} > dist/version.txt
 
       - name: Remove old Releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
@@ -53,7 +50,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download all artifacts
         uses: actions/download-artifact@v2
@@ -61,15 +58,9 @@ jobs:
           name: build_files
           path: dist
 
-      - name: Read version
-        run: |
-          # 获取版本信息
-          echo "VERSION=$(cat dist/version.txt)" >> $GITHUB_ENV
-          rm -rf dist/version.txt
-
       - name: Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.12.0
         with:
           artifacts: "dist/*"
-          tag: ${{ env.VERSION }}
+          tag: 'latest'
           token: ${{ secrets.GITHUB_TOKEN }}
