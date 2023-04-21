@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-npm -i
+npm install
 mkdir -p dist
 more .env.example > .env
 tsc
