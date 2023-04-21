@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 npm -i
+mkdir -p dist
 more .env.example > .env
 tsc
 
