@@ -29,7 +29,7 @@ jobs:
           # ls .. -R -las
 
           # 获取sha256 checksum
-          sha256sum dist/* > bin/SHA256SUMS.txt
+          sha256sum dist/* > dist/SHA256SUMS.txt
 
           # 获取版本信息
           echo ${{ github.event.inputs.version }} > dist/version.txt
