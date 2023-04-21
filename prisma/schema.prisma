@@ -9,7 +9,23 @@ datasource db {
 // }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+generator client-windows {
+  provider      = "prisma-client-js"
+  binaryTargets = ["windows"]
+}
+
+generator client-macos {
+  provider      = "prisma-client-js"
+  binaryTargets = ["darwin"]
+}
+
+generator client-linux {
+  provider      = "prisma-client-js"
+  binaryTargets = ["debian-openssl-3.0.x"]
 }
 
 model Invoice {

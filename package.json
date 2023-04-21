@@ -1,11 +1,12 @@
 {
-  "name": "financial_accounting_backend",
+  "name": "final-money",
   "version": "1.0.0",
-  "description": "",
+  "description": "final-money backend",
   "main": "main.ts",
   "scripts": {
-    "setupDB": "prisma format && prisma generate && prisma db push",
+    "setup": "prisma format && prisma generate --generator client && prisma db push --skip-generate",
     "start": "ts-node main",
+    "build": "tsc && prisma generate --generator client && pkg --compress Gzip package.json && tsc --build --clean",
     "clean": "tsc --build --clean"
   },
   "dependencies": {
@@ -13,12 +14,27 @@
     "@types/express": "latest",
     "typescript": "latest",
     "@types/node": "latest",
-    "ts-node": "latest",
     "prisma": "latest",
     "@prisma/client": "latest",
     "cors": "latest"
   },
   "devDependencies": {
-    "npm-check-updates": "latest"
+    "ts-node": "latest",
+    "pkg": "latest"
+  },
+  "bin": "main.js",
+  "pkg": {
+    "scripts": [
+    ],
+    "assets": [
+      "node_modules/.prisma/**/*",
+      ".env"
+    ],
+    "targets": [
+      "latest-linux-x64",
+      "latest-macos-x64",
+      "latest-win-x64"
+    ],
+    "outputPath": "dist"
   }
 }
