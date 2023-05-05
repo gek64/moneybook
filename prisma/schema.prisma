@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:root@localhost:3306/financial_accounting"
 }
 
 // datasource db {
@@ -8,7 +8,7 @@ datasource db {
 //   url      = "file:financial_accounting.db"
 // }
 
-generator client {
+generator client-native {
   provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }

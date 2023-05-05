@@ -1,9 +1,10 @@
 import express from "express"
 import {Invoice, PrismaClient} from "@prisma/client"
+import {PrismaClientOption} from "../../../main"
 
 async function UpdateInvoice(req: express.Request<any, any, Invoice, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.invoice.update({
         where: {

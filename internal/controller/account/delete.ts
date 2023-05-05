@@ -1,5 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import express from "express"
+import {PrismaClientOption} from "../../../main"
 
 interface DeleteAccountQuery {
     id: string
@@ -11,7 +12,7 @@ interface DeleteManyAccountQuery {
 
 async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.account.deleteMany({
         where: {
@@ -30,7 +31,7 @@ async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQu
 
 async function DeleteManyAccount(req: express.Request<any, any, any, DeleteManyAccountQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.account.deleteMany({
         where: {

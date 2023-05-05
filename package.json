@@ -4,9 +4,10 @@
   "description": "final-money backend",
   "main": "main.ts",
   "scripts": {
-    "setup": "prisma format && prisma generate --generator client && prisma db push --skip-generate",
+    "generate": "prisma generate --generator client-native",
+    "push": "prisma db push --skip-generate",
     "start": "ts-node main",
-    "build": "tsc && prisma generate --generator client && pkg --compress Gzip package.json && tsc --build --clean",
+    "build": "ts-node build",
     "clean": "tsc --build --clean"
   },
   "dependencies": {
@@ -16,24 +17,25 @@
     "@types/node": "latest",
     "prisma": "latest",
     "@prisma/client": "latest",
-    "cors": "latest"
+    "cors": "latest",
+    "commander": "latest"
   },
   "devDependencies": {
     "ts-node": "latest",
-    "pkg": "latest"
+    "pkg": "latest",
+    "chalk": "latest"
   },
   "bin": "main.js",
   "pkg": {
     "scripts": [
     ],
     "assets": [
-      "node_modules/.prisma/**/*",
-      ".env"
+      "node_modules/.prisma/**/*"
     ],
     "targets": [
-      "latest-linux-x64",
+      "latest-win-x64",
       "latest-macos-x64",
-      "latest-win-x64"
+      "latest-linux-x64"
     ],
     "outputPath": "dist"
   }

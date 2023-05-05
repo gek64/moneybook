@@ -1,5 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import express from "express"
+import {PrismaClientOption} from "../../../main"
 
 
 interface ReadInvoiceById {
@@ -22,7 +23,7 @@ interface ReadInvoiceWithPaginationAndFuzzyQuery extends ReadInvoiceWithPaginati
 // 按账单编号查询
 async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceById>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.invoice.findFirst({
         where: {
@@ -60,7 +61,7 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
 
 // 查询所有账单
 async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.invoice.findMany({
         include: {
@@ -79,7 +80,7 @@ async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: exp
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadInvoiceWithPagination(req: express.Request<any, any, any, ReadInvoiceWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.invoice.findMany({
         skip: Number(query.skip),
@@ -98,7 +99,7 @@ async function ReadInvoiceWithPagination(req: express.Request<any, any, any, Rea
 // 模糊查询
 async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvoiceWithFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     // 多表关联查询 https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries
     // 查询结果包含拼接的关联表
@@ -145,7 +146,7 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
 // 模糊分页查询
 async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, any, ReadInvoiceWithPaginationAndFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.invoice.findMany({
         skip: Number(query.skip),

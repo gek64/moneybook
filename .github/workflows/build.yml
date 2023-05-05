@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          bash doc/build.sh
+          npm run build
 
           # 显示文件路径(debug)
           # ls .. -R -las

@@ -1,5 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import express from "express"
+import {PrismaClientOption} from "../../../main"
 
 interface DeleteTypeQuery {
     id?: string
@@ -12,7 +13,7 @@ interface DeleteManyTypeQuery {
 
 async function DeleteType(req: express.Request<any, any, any, DeleteTypeQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.deleteMany({
         where: {
@@ -34,7 +35,7 @@ async function DeleteType(req: express.Request<any, any, any, DeleteTypeQuery>, 
 
 async function DeleteManyType(req: express.Request<any, any, any, DeleteManyTypeQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.deleteMany({
         where:

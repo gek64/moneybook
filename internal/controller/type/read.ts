@@ -1,5 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import express from "express"
+import {PrismaClientOption} from "../../../main"
 
 
 interface ReadTypeByIdQuery {
@@ -22,7 +23,7 @@ interface ReadTypeWithPaginationAndFuzzyQuery extends ReadTypeWithPaginationQuer
 // 按类型编号查询
 async function ReadTypeById(req: express.Request<any, any, any, ReadTypeByIdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.findFirst({
         where: {
@@ -41,7 +42,7 @@ async function ReadTypeById(req: express.Request<any, any, any, ReadTypeByIdQuer
 
 // 查询所有类型
 async function ReadAllType(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.findMany({})
         .then(function (resp) {
@@ -55,7 +56,7 @@ async function ReadAllType(req: express.Request<any, any, any, any>, res: expres
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadTypeWithPagination(req: express.Request<any, any, any, ReadTypeWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.findMany({
         skip: Number(query.skip),
@@ -70,7 +71,7 @@ async function ReadTypeWithPagination(req: express.Request<any, any, any, ReadTy
 // 模糊查询
 async function ReadTypeWithFuzzy(req: express.Request<any, any, any, ReadTypeWithFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.findMany({
         where: {
@@ -92,7 +93,7 @@ async function ReadTypeWithFuzzy(req: express.Request<any, any, any, ReadTypeWit
 // 模糊分页查询
 async function ReadTypeWithPaginationAndFuzzy(req: express.Request<any, any, any, ReadTypeWithPaginationAndFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.type.findMany({
         skip: Number(query.skip),
