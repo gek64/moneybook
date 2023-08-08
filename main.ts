@@ -5,21 +5,15 @@ import express from "express"
 import cors from "cors"
 import {InvalidArgumentError, program} from "commander"
 
-const PrismaClientOption = {
-    datasources: {
-        db: {
-            url: ""
-        }
-    }
-}
+const PrismaClientOption = {datasources: {db: {url: ""}}}
 
 
 function parsePort(value: string) {
     const parsedValue = parseInt(value)
     if (isNaN(parsedValue)) {
-        throw new InvalidArgumentError("Not a number.")
+        throw new InvalidArgumentError("not a number.")
     } else if (parsedValue <= 0 || parsedValue >= 65535) {
-        throw new InvalidArgumentError("Not a invalid port.")
+        throw new InvalidArgumentError("not a invalid port.")
     }
     return parsedValue
 }
@@ -33,6 +27,7 @@ function main() {
     program.parse()
     PrismaClientOption.datasources.db.url = program.opts().database
 
+    // express
     const app = express()
 
     // 允许跨域访问

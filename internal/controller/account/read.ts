@@ -17,7 +17,6 @@ interface ReadAccountWithFuzzyQuery {
 }
 
 interface ReadAccountWithPaginationAndFuzzyQuery extends ReadAccountWithPaginationQuery, ReadAccountWithFuzzyQuery {
-
 }
 
 // 按账户编号查询
