@@ -19,8 +19,6 @@ chmod +x "/usr/local/bin/final-money"
 ## Usage
 
 ```shell
-EXAMPLE: final-money -db mysql://root:root@192.168.1.2:3306/financial_accounting
-
 Usage: final-money [options]
 
 Options:
@@ -28,6 +26,9 @@ Options:
   -addr --address [string]  ip address (default: "localhost")
   -p, --port [number]       port (default: 8000)
   -h, --help                display help for command
+
+EXAMPLE:
+  final-money -db mysql://root:root@192.168.1.2:3306/financial_accounting
 ```
 
 ## FAQ
