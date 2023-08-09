@@ -1,6 +1,5 @@
 import {exec, ExecException, execSync} from "child_process"
 import * as fs from "fs"
-import chalk from "chalk"
 
 function runPromise(command: string) {
     return new Promise((resolve: (stdout: string) => void, reject: (error: ExecException | string) => void) => {
@@ -20,20 +19,20 @@ function runPromise(command: string) {
 
 
 function run(command: string) {
-    console.log(chalk.green("command: ") + chalk.red(command))
+    console.log("command: " + command)
     const result = execSync(command)
     console.log(result.toString("utf8"))
 }
 
 function mkdir(dir: string) {
-    console.log(chalk.green("command: ") + chalk.red(`make dir ${dir}`))
+    console.log("command: " + `make dir ${dir}`)
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, {recursive: true})
     }
 }
 
 function rm(path: string) {
-    console.log(chalk.green("command: ") + chalk.red(`remove ${path}`))
+    console.log("command: " + `remove ${path}`)
     if (fs.existsSync(path)) {
         fs.rmSync(path, {recursive: true, force: true})
     }
