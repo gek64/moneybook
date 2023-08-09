@@ -19,4 +19,4 @@ export PRISMA_CLIENT_ENGINE_TYPE=library
 
 cd $BASEDIR
 npx prisma generate --generator client-native
-npx ts-node main -db mysql://root:root@localhost:3306/financial_accounting -addr 0.0.0.0 -p 8000
+npx ts-node main $@
