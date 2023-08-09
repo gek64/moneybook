@@ -18,7 +18,7 @@ git clone --depth 1 --recurse-submodules --branch "v18.x" https://github.com/nod
 cd /tmp/ && zip -9 -r -y -UN=UTF8 "$HOME/node-`/tmp/node/bin/node -v`_`uname -o`_`uname -r`_`uname -p`.zip" node
 
 
-# prisma-engines
+# prisma-engines(memory>=8G)
 ## https://rustup.rs/
 pkg install -y protobuf git zip unzip
 curl -Lo rustup-init.sh https://sh.rustup.rs && sh rustup-init.sh -y && rm -rf rustup-init.sh
