@@ -3,10 +3,10 @@
 pkg install -y unzip zip git gmake
 export CC=clang
 export CXX=clang++
-export proxy_url=192.168.1.2
-export http_proxy=http://${proxy_url}:1081
-export  https_proxy=http://${proxy_url}:1081
-git config --global http.https://github.com.proxy socks5://${proxy_url}:1080
+# export proxy_url=192.168.1.2
+# export http_proxy=http://${proxy_url}:1081
+# export  https_proxy=http://${proxy_url}:1081
+# git config --global http.https://github.com.proxy socks5://${proxy_url}:1080
 
 
 # nodejs

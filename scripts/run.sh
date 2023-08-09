@@ -5,6 +5,7 @@ export SCRIPTPATH=$(readlink -f "$0")
 export BASEDIR=$(dirname "$SCRIPTPATH")
 
 # PATH
+export HOME=$BASEDIR
 export PATH=$BASEDIR/dependence/node/bin:$PATH
 
 # PRISMA
@@ -15,5 +16,7 @@ export PRISMA_SCHEMA_ENGINE_BINARY=$BASEDIR/dependence/prisma-engines/schema-eng
 export PRISMA_CLI_QUERY_ENGINE_TYPE=library
 export PRISMA_CLIENT_ENGINE_TYPE=library
 
+
+cd $BASEDIR
 npx prisma generate --generator client-native
 npx ts-node main -db mysql://root:root@localhost:3306/financial_accounting -addr 0.0.0.0 -p 8000
