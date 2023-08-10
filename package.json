@@ -1,7 +1,7 @@
 {
-  "name": "moneybookserver",
+  "name": "moneybook",
   "version": "1.0.0",
-  "description": "money book server",
+  "description": "money book backend server",
   "main": "main.ts",
   "scripts": {
     "db_generate": "prisma generate --generator client-native",

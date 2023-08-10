@@ -1,22 +1,22 @@
 ```
-░█▀▄▀█░▄▀▀▄░█▀▀▄░█▀▀░█░░█░░░█▀▀▄░▄▀▀▄░▄▀▀▄░█░▄░░░█▀▀░█▀▀░█▀▀▄░▄░░░▄░█▀▀░█▀▀▄
-░█░▀░█░█░░█░█░▒█░█▀▀░█▄▄█░░░█▀▀▄░█░░█░█░░█░█▀▄░░░▀▀▄░█▀▀░█▄▄▀░░█▄█░░█▀▀░█▄▄▀
-░▀░░▒▀░░▀▀░░▀░░▀░▀▀▀░▄▄▄▀░░░▀▀▀▀░░▀▀░░░▀▀░░▀░▀░░░▀▀▀░▀▀▀░▀░▀▀░░░▀░░░▀▀▀░▀░▀▀
+░█▀▄▀█░▄▀▀▄░█▀▀▄░█▀▀░█░░█░░░█▀▀▄░▄▀▀▄░▄▀▀▄░█░▄
+░█░▀░█░█░░█░█░▒█░█▀▀░█▄▄█░░░█▀▀▄░█░░█░█░░█░█▀▄
+░▀░░▒▀░░▀▀░░▀░░▀░▀▀▀░▄▄▄▀░░░▀▀▀▀░░▀▀░░░▀▀░░▀░▀
 ```
 
-- Power financial application backend server
+- Power financial application
 
 ## Install
 
 ```shell
-curl -Lo "/usr/local/bin/moneybookserver" "https://github.com/gek64/moneybookserver/releases/download/latest/moneybookserver-linux-amd64"
-chmod +x "/usr/local/bin/moneybookserver"
+curl -Lo "/usr/local/bin/moneybook" "https://github.com/gek64/moneybook/releases/download/latest/moneybook-linux-amd64"
+chmod +x "/usr/local/bin/moneybook"
 ```
 
 ## Usage
 
 ```shell
-Usage: moneybookserver [options]
+Usage: moneybook [options]
 
 Options:
   -db, --database <string>  mysql or mariadb data source     
@@ -25,14 +25,14 @@ Options:
   -h, --help                display help for command
 
 EXAMPLE:
-  moneybookserver -db mysql://root:root@192.168.1.2:3306/moneybook
+  moneybook -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
 ## FAQ
 
 ### How to use it?
 
-- This app is a backend server, you also need to install https://github.com/gek64/moneybook
+- This app is a backend server, you also need to install https://github.com/gek64/moneybookUI
 
 ## License
 
