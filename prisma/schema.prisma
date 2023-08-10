@@ -1,11 +1,11 @@
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root@localhost:3306/financial_accounting"
+  url      = "mysql://root:root@localhost:3306/moneybook"
 }
 
 // datasource db {
 //   provider = "sqlite"
-//   url      = "file:financial_accounting.db"
+//   url      = "file:moneybook.db"
 // }
 
 generator client-native {

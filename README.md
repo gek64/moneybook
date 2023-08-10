@@ -1,25 +1,22 @@
 ```
-███████╗██╗███╗   ██╗ █████╗ ██╗         ███╗   ███╗ ██████╗ ███╗   ██╗███████╗██╗   ██╗
-██╔════╝██║████╗  ██║██╔══██╗██║         ████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚██╗ ██╔╝
-█████╗  ██║██╔██╗ ██║███████║██║         ██╔████╔██║██║   ██║██╔██╗ ██║█████╗   ╚████╔╝ 
-██╔══╝  ██║██║╚██╗██║██╔══██║██║         ██║╚██╔╝██║██║   ██║██║╚██╗██║██╔══╝    ╚██╔╝  
-██║     ██║██║ ╚████║██║  ██║███████╗    ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████╗   ██║   
-╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   
+░█▀▄▀█░▄▀▀▄░█▀▀▄░█▀▀░█░░█░░░█▀▀▄░▄▀▀▄░▄▀▀▄░█░▄░░░█▀▀░█▀▀░█▀▀▄░▄░░░▄░█▀▀░█▀▀▄
+░█░▀░█░█░░█░█░▒█░█▀▀░█▄▄█░░░█▀▀▄░█░░█░█░░█░█▀▄░░░▀▀▄░█▀▀░█▄▄▀░░█▄█░░█▀▀░█▄▄▀
+░▀░░▒▀░░▀▀░░▀░░▀░▀▀▀░▄▄▄▀░░░▀▀▀▀░░▀▀░░░▀▀░░▀░▀░░░▀▀▀░▀▀▀░▀░▀▀░░░▀░░░▀▀▀░▀░▀▀
 ```
 
-- Power financial application
+- Power financial application backend server
 
 ## Install
 
 ```shell
-curl -Lo "/usr/local/bin/final-money" "https://github.com/gek64/final-money/releases/download/latest/final-money-linux-amd64"
-chmod +x "/usr/local/bin/final-money"
+curl -Lo "/usr/local/bin/moneybookserver" "https://github.com/gek64/moneybookserver/releases/download/latest/moneybookserver-linux-amd64"
+chmod +x "/usr/local/bin/moneybookserver"
 ```
 
 ## Usage
 
 ```shell
-Usage: final-money [options]
+Usage: moneybookserver [options]
 
 Options:
   -db, --database <string>  mysql or mariadb data source     
@@ -28,14 +25,14 @@ Options:
   -h, --help                display help for command
 
 EXAMPLE:
-  final-money -db mysql://root:root@192.168.1.2:3306/financial_accounting
+  moneybookserver -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
 ## FAQ
 
 ### How to use it?
 
-- This app is a backend, you also need to install https://github.com/gek64/final-money-frontend
+- This app is a backend server, you also need to install https://github.com/gek64/moneybook
 
 ## License
 

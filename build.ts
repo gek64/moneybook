@@ -47,15 +47,15 @@ function build() {
 
     rm("./node_modules/.prisma")
     run("prisma generate --generator client-windows")
-    run("pkg -t latest-windows-x64 --compress Gzip package.json -o dist/final-money-windows-amd64.exe")
+    run("pkg -t latest-windows-x64 --compress Gzip package.json -o dist/moneybookserver-windows-amd64.exe")
 
     rm("./node_modules/.prisma")
     run("prisma generate --generator client-macos")
-    run("pkg -t latest-macos-x64 --compress Gzip package.json -o dist/final-money-macos-amd64")
+    run("pkg -t latest-macos-x64 --compress Gzip package.json -o dist/moneybookserver-macos-amd64")
 
     rm("./node_modules/.prisma")
     run("prisma generate --generator client-linux")
-    run("pkg -t latest-linux-x64 --compress Gzip package.json -o dist/final-money-linux-amd64")
+    run("pkg -t latest-linux-x64 --compress Gzip package.json -o dist/moneybookserver-linux-amd64")
 
     run("tsc --build --clean")
 }

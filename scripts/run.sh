@@ -19,4 +19,4 @@ export PRISMA_CLIENT_ENGINE_TYPE=library
 
 cd $BASEDIR
 npx prisma generate --generator client-native
-npx ts-node main $@
+npx ts-node main "$@"
