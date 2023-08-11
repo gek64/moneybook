@@ -51,6 +51,7 @@ if [ "$platform" = "FreeBSD" ]; then
   pkg install -y protobuf
 fi
 
+cd $HOME
 curl -Lo rustup-init.sh https://sh.rustup.rs && sh rustup-init.sh -y && rm -rf rustup-init.sh
 export PATH=$HOME/.cargo/bin:$PATH
 git clone --depth 1 --recurse-submodules https://github.com/prisma/prisma-engines.git
