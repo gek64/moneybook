@@ -17,6 +17,6 @@ export PRISMA_CLI_QUERY_ENGINE_TYPE=library
 export PRISMA_CLIENT_ENGINE_TYPE=library
 
 
-cd $BASEDIR
+cd "$BASEDIR" || exit
 npx prisma generate --generator client-native
 npx ts-node main "$@"
