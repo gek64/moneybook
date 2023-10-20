@@ -7,7 +7,6 @@ import {InvalidArgumentError, program} from "commander"
 
 const PrismaClientOption = {datasources: {db: {url: ""}}}
 
-
 function parsePort(value: string) {
     const parsedValue = parseInt(value)
     if (isNaN(parsedValue)) {
