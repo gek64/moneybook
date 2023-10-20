@@ -24,6 +24,16 @@ function run(command: string) {
     console.log(result.toString("utf8"))
 }
 
+function writeFile(filePath: string, content: string) {
+    console.log("command: " + `write to file ${filePath}`)
+    fs.writeFileSync(filePath, content)
+}
+
+function appendFile(filePath: string, content: string) {
+    console.log("command: " + `append to file ${filePath}`)
+    fs.appendFileSync(filePath, content)
+}
+
 function mkdir(dir: string) {
     console.log("command: " + `make dir ${dir}`)
     if (!fs.existsSync(dir)) {
