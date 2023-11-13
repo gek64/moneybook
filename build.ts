@@ -67,6 +67,10 @@ function build() {
     run("prisma generate --generator client-linux")
     run("pkg -t latest-linux-x64 --compress Gzip package.json -o dist/moneybook-linux-amd64")
 
+    rm("./node_modules/.prisma")
+    run("prisma generate --generator client-linux")
+    run("pkg -t latest-linux-arm64 --compress Gzip package.json -o dist/moneybook-linux-arm64")
+
     run("tsc --build --clean")
 }
 
