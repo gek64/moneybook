@@ -6,7 +6,7 @@
   "scripts": {
     "prisma_generate": "prisma generate --generator client-native",
     "prisma_push": "prisma db push --skip-generate",
-    "dev": "ts-node main -db mysql://root:root@localhost:3306/moneybook",
+    "start": "ts-node main -db mysql://root:root@localhost:3306/moneybook",
     "build": "ts-node build",
     "clean": "tsc --build --clean"
   },
@@ -23,23 +23,6 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.5",
     "@types/cors": "^2.8.17",
-    "pkg": "^5.8.1",
     "npm-check-updates": "^16.14.12"
-  },
-  "pkg": {
-    "scripts": [],
-    "assets": [
-      "node_modules/.prisma/**/*"
-    ],
-    "targets": [
-      "latest-win-x64",
-      "latest-win-arm64",
-      "latest-macos-x64",
-      "latest-macos-arm64",
-      "latest-linux-x64",
-      "latest-linux-arm64"
-    ],
-    "outputPath": "dist"
-  },
-  "bin": "main.js"
+  }
 }

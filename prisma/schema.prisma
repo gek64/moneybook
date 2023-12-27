@@ -3,11 +3,7 @@ datasource db {
   url      = "mysql://root:root@localhost:3306/moneybook"
 }
 
-// datasource db {
-//   provider = "sqlite"
-//   url      = "file:moneybook.db"
-// }
-
+// https://www.prisma.io/docs/orm/reference/prisma-schema-reference#binarytargets-options
 generator client-native {
   provider      = "prisma-client-js"
   binaryTargets = ["native"]
@@ -18,14 +14,34 @@ generator client-windows {
   binaryTargets = ["windows"]
 }
 
-generator client-macos {
+generator client-macos-x64 {
   provider      = "prisma-client-js"
   binaryTargets = ["darwin"]
 }
 
-generator client-linux {
+generator client-macos-arm64 {
+  provider      = "prisma-client-js"
+  binaryTargets = ["darwin-arm64"]
+}
+
+generator client-linux-musl-x64 {
+  provider      = "prisma-client-js"
+  binaryTargets = ["linux-musl-openssl-3.0.x"]
+}
+
+generator client-linux-musl-arm64 {
+  provider      = "prisma-client-js"
+  binaryTargets = ["linux-musl-arm64-openssl-3.0.x"]
+}
+
+generator client-linux-glibc-x64 {
   provider      = "prisma-client-js"
   binaryTargets = ["debian-openssl-3.0.x"]
+}
+
+generator client-linux-glibc-arm64 {
+  provider      = "prisma-client-js"
+  binaryTargets = ["linux-arm64-openssl-3.0.x"]
 }
 
 model Invoice {
