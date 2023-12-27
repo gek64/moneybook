@@ -25,7 +25,7 @@ Options:
   -h, --help                display help for command
 
 EXAMPLE:
-  moneybook -db mysql://root:root@192.168.1.2:3306/moneybook
+  moneybook -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
 ## FAQ
