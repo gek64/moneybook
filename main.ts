@@ -23,8 +23,10 @@ function main() {
         .requiredOption("-db, --database <string>", "mysql or mariadb data source")
         .option("-addr --address [string]", "ip address", "localhost")
         .option("-p, --port [number]", "port", parsePort, 8000)
+        .action(() => {
+            PrismaClientOption.datasources.db.url = program.opts().database
+        })
     program.parse()
-    PrismaClientOption.datasources.db.url = program.opts().database
 
     // express
     const app = express()
@@ -43,10 +45,8 @@ function main() {
     app.listen(program.opts().port, program.opts().address)
 }
 
+main()
 
 export {
     PrismaClientOption
 }
-
-
-main()
