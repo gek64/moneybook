@@ -9,9 +9,15 @@
 ## Install
 
 ```sh
-git clone https://github.com/gek64/moneybook /usr/local/bin/moneybook
-cd /usr/local/bin/moneybook && npm install
-npm run start /usr/local/bin/moneybook -- -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
+# install nodejs curl and unzip
+apt update && apt install -y nodejs curl unzip
+
+# download and install compiled files
+curl -LOJ https://github.com/gek64/moneybook/releases/download/latest/moneybook.zip
+unzip moneybook.zip && rm -rf /usr/local/bin/moneybook && mv dist /usr/local/bin/moneybook && rm -f moneybook.zip
+
+# run test
+node /usr/local/bin/moneybook/index.js -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
 ## Usage
@@ -25,8 +31,7 @@ Options:
   -p, --port [number]       port (default: 8000)
   -h, --help                display help for command
 
-EXAMPLE:
-  npx ts-node main.ts -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
+Dev start:
   npm run start -- -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
@@ -35,14 +40,14 @@ EXAMPLE:
 ### systemd
 
 ``sh
-nano /etc/systemd/system/moneybook.service
+curl -Lo /etc/systemd/system/moneybook.service https://raw.githubusercontent.com/gek64/moneybook/main/configs/systemd/moneybook.service
 systemctl enable moneybook.service && systemctl restart moneybook.service
 ``
 
 ### openrc
 
 ``sh
-nano /etc/init.d/moneybook
+curl -Lo /etc/init.d/moneybook https://raw.githubusercontent.com/gek64/moneybook/main/configs/openrc/moneybook
 chmod +x /etc/init.d/moneybook
 rc-update add moneybook && service moneybook restart
 ``
