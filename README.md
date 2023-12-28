@@ -39,18 +39,18 @@ Dev start:
 
 ### systemd
 
-``sh
+```sh
 curl -Lo /etc/systemd/system/moneybook.service https://raw.githubusercontent.com/gek64/moneybook/main/configs/systemd/moneybook.service
 systemctl enable moneybook.service && systemctl restart moneybook.service
-``
+```
 
 ### openrc
 
-``sh
+```sh
 curl -Lo /etc/init.d/moneybook https://raw.githubusercontent.com/gek64/moneybook/main/configs/openrc/moneybook
 chmod +x /etc/init.d/moneybook
 rc-update add moneybook && service moneybook restart
-``
+```
 
 ## FAQ
 
