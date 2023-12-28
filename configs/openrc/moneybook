@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+# https://www.funtoo.org/Openrc
+
+# env
+M_ADDR="0.0.0.0"
+M_PORT="8000"
+M_DATABASE="mysql://root:root@192.168.1.2:3306/moneybook"
+
+command="npm"
+command_args="start -- -addr ${M_ADDR} -p ${M_PORT} -db ${M_DATABASE}"
+command_background=true
+command_user="root"
+directory="/usr/local/bin/moneybook"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+  need net
+  use dns logger netmount
+  after firewall
+}

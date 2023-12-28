@@ -8,14 +8,15 @@
 
 ## Install
 
-```shell
-curl -Lo "/usr/local/bin/moneybook" "https://github.com/gek64/moneybook/releases/download/latest/moneybook-linux-amd64"
-chmod +x "/usr/local/bin/moneybook"
+```sh
+git clone https://github.com/gek64/moneybook /usr/local/bin/moneybook
+cd /usr/local/bin/moneybook && npm install
+npm run start /usr/local/bin/moneybook -- -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
 
 ## Usage
 
-```shell
+```sh
 Usage: moneybook [options]
 
 Options:
@@ -25,8 +26,26 @@ Options:
   -h, --help                display help for command
 
 EXAMPLE:
-  moneybook -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
+  npx ts-node main.ts -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
+  npm run start -- -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
+
+## Service
+
+### systemd
+
+``sh
+nano /etc/systemd/system/moneybook.service
+systemctl enable moneybook.service && systemctl restart moneybook.service
+``
+
+### openrc
+
+``sh
+nano /etc/init.d/moneybook
+chmod +x /etc/init.d/moneybook
+rc-update add moneybook && service moneybook restart
+``
 
 ## FAQ
 
