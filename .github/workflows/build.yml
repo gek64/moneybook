@@ -33,12 +33,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup golang
-        uses: actions/setup-go@v4
-        with:
-          go-version: 'stable'
-
+        
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
@@ -54,14 +49,22 @@ jobs:
 
       - name: Build
         run: |
+          # 编译
           npm run build
+          # 删除拷贝错误的查询引擎文件
+          rm -rf dist/client
+          # 拷贝所有的查询引擎文件
+          cp node_modules/.prisma/client/*.node dist
+          # 压缩
+          zip -9 moneybook.zip dist/*
+          
           # 获取sha256 checksum
-          sha256sum bin/* > bin/SHA256SUMS.txt
+          sha256sum moneybook.zip > SHA256SUMS.txt
 
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "bin/*"
+          artifacts: "moneybook.zip,SHA256SUMS.txt"
           tag: "latest"
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
