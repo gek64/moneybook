@@ -1,10 +1,9 @@
-import {execSync} from "child_process"
-import * as fs from "fs"
-
+const child_process = require("child_process")
+const fs = require("fs")
 
 function run(command) {
     console.log("command: " + command)
-    const result = execSync(command)
+    const result = child_process.execSync(command)
     console.log(result.toString("utf8"))
 }
 
