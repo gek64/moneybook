@@ -54,6 +54,7 @@ jobs:
 
       - name: Build
         run: |
+          npm run build
           # 获取sha256 checksum
           sha256sum bin/* > bin/SHA256SUMS.txt
 

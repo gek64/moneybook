@@ -35,7 +35,7 @@ function rm(path) {
 function build() {
     run("npm install")
     run("tsc --build --clean")
-    run("ncc build main.ts --minify")
+    run("ncc build main.ts")
 }
 
 build()
