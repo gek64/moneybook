@@ -13,8 +13,8 @@
 apt update && apt install -y nodejs curl unzip
 
 # download and install compiled files
-curl -LOJ https://github.com/gek64/moneybook/releases/download/latest/moneybook.zip
-unzip moneybook.zip && rm -rf /usr/local/bin/moneybook && mv dist /usr/local/bin/moneybook && rm -f moneybook.zip
+curl -Lo /tmp/moneybook.zip https://github.com/gek64/moneybook/releases/download/latest/moneybook.zip
+unzip -o /tmp/moneybook.zip -d /tmp && rm -rf /usr/local/bin/moneybook && mv /tmp/dist /usr/local/bin/moneybook
 
 # run test
 node /usr/local/bin/moneybook/index.js -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
