@@ -33,6 +33,7 @@ function main() {
 
     // 允许跨域访问
     app.use(cors())
+
     // req.body json 序列化
     app.use(express.json())
 
