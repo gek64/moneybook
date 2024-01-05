@@ -16,6 +16,9 @@ apt update && apt install -y nodejs curl unzip
 curl -Lo /tmp/moneybook.zip https://github.com/gek64/moneybook/releases/download/latest/moneybook.zip
 unzip -o /tmp/moneybook.zip -d /tmp && rm -rf /usr/local/bin/moneybook && mv /tmp/dist /usr/local/bin/moneybook
 
+# if run on freebsd
+# download libquery_engine.so to /usr/local/bin/moneybook/libquery_engine-freebsd13.so.node from https://github.com/gek64/prisma-engines-freebsd
+
 # run test
 node /usr/local/bin/moneybook/index.js -addr 0.0.0.0 -p 8000 -db mysql://root:root@192.168.1.2:3306/moneybook
 ```
