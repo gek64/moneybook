@@ -34,6 +34,7 @@ function rm(path) {
 
 function build() {
     run("npm install")
+    run("prisma generate")
     run("tsc --build --clean")
     run("ncc build main.ts")
 }
