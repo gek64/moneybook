@@ -6,7 +6,8 @@
   "scripts": {
     "prisma:generate": "prisma generate --generator client-native",
     "prisma:push": "prisma db push --skip-generate",
-    "init": "npx -y pnpm update && npx -y pnpm install",
+    "init": "npx -y pnpm install",
+    "update": "npx -y pnpm update",
     "start": "ts-node main",
     "build": "node build",
     "clean": "tsc --build --clean"
