@@ -27,7 +27,7 @@ async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res
 
     await prisma.transaction.findFirst({
         where: {
-            id: Number(query.id),
+            id: query.id,
         },
         include: {
             // 查询关系表中的部分字段

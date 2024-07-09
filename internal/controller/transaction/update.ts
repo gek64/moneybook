@@ -8,7 +8,7 @@ async function UpdateTransaction(req: express.Request<any, any, Transaction, any
 
     await prisma.transaction.update({
         where: {
-            id: Number(body.id),
+            id: body.id,
         },
         data: {
             title: body.title,

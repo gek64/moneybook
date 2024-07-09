@@ -8,7 +8,7 @@ async function UpdateAccount(req: express.Request<any, any, Account, any>, res: 
 
     await prisma.account.update({
         where: {
-            id: Number(body.id),
+            id: body.id,
         },
         data: {
             name: body.name,

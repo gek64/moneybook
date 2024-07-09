@@ -3,12 +3,12 @@ import express from "express"
 import {PrismaClientOption} from "../../../main"
 
 interface IdQuery {
-    id?: number
+    id?: string
     name?: string
 }
 
 interface IdsQuery {
-    ids: number[]
+    ids: string[]
 }
 
 async function DeleteType(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
@@ -17,7 +17,7 @@ async function DeleteType(req: express.Request<any, any, any, IdQuery>, res: exp
 
     await prisma.type.delete({
         where: {
-            id: Number(query.id),
+            id: query.id,
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -34,7 +34,7 @@ async function DeleteTypes(req: express.Request<any, any, any, IdsQuery>, res: e
         where:
             {
                 id: {
-                    in: query.ids.map(i => Number(i))
+                    in: query.ids
                 }
             }
     }).then(function (resp) {

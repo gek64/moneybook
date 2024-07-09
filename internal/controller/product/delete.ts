@@ -16,7 +16,7 @@ async function DeleteProduct(req: express.Request<any, any, any, IdQuery>, res: 
 
     await prisma.product.delete({
         where: {
-            id: Number(query.id),
+            id: query.id,
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -32,7 +32,7 @@ async function DeleteProducts(req: express.Request<any, any, any, IdsQuery>, res
     await prisma.product.deleteMany({
         where: {
             id: {
-                in: query.ids.map(i => Number(i))
+                in: query.ids
             }
         },
     }).then(function (resp) {

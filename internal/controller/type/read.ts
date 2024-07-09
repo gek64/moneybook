@@ -27,7 +27,7 @@ async function ReadType(req: express.Request<any, any, any, IdQuery>, res: expre
 
     await prisma.type.findFirst({
         where: {
-            id: Number(query.id),
+            id: query.id,
         },
     }).then(function (resp) {
         res.status(200).json(resp)

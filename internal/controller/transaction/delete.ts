@@ -16,7 +16,7 @@ async function DeleteTransaction(req: express.Request<any, any, any, IdQuery>, r
 
     await prisma.transaction.delete({
         where: {
-            id: Number(query.id)
+            id: query.id
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -32,7 +32,7 @@ async function DeleteTransactions(req: express.Request<any, any, any, IdsQuery>,
     await prisma.transaction.deleteMany({
         where: {
             id: {
-                in: query.ids.map(i => Number(i))
+                in: query.ids
             }
         },
     }).then(function (resp) {

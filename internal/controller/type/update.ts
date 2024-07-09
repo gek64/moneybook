@@ -8,7 +8,7 @@ async function UpdateType(req: express.Request<any, any, Type, any>, res: expres
 
     await prisma.type.update({
         where: {
-            id: Number(body.id),
+            id: body.id,
         },
         data: {
             name: body.name,

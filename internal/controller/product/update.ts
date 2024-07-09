@@ -8,7 +8,7 @@ async function UpdateProduct(req: express.Request<any, any, Product, any>, res: 
 
     await prisma.product.update({
         where: {
-            id: Number(body.id),
+            id: body.id,
         },
         data: {
             name: body.name,

@@ -10,21 +10,21 @@ generator client {
 }
 
 model Transaction {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   title     String
   product   Product?  @relation(fields: [productId], references: [id])
-  productId Int?
+  productId String?
   type      Type      @relation(fields: [typeId], references: [id])
-  typeId    Int
+  typeId    String
   account   Account   @relation(fields: [accountId], references: [id])
-  accountId Int
+  accountId String
   amount    Float
   datetime  DateTime? @default(now())
   status    String?
 }
 
 model Product {
-  id             Int           @id @default(autoincrement())
+  id             String        @id @default(cuid())
   name           String
   code           String?
   specifications String?
@@ -33,13 +33,13 @@ model Product {
 }
 
 model Type {
-  id          Int           @id @default(autoincrement())
+  id          String        @id @default(cuid())
   name        String
   Transaction Transaction[]
 }
 
 model Account {
-  id          Int           @id @default(autoincrement())
+  id          String        @id @default(cuid())
   name        String
   number      String?
   type        String

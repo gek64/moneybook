@@ -26,7 +26,7 @@ async function ReadProduct(req: express.Request<any, any, any, IdQuery>, res: ex
 
     await prisma.product.findFirst({
         where: {
-            id: Number(query.id)
+            id: query.id
         },
     }).then(function (resp) {
         res.status(200).json(resp)

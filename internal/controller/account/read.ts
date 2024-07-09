@@ -26,7 +26,7 @@ async function ReadAccount(req: express.Request<any, any, any, IdQuery>, res: ex
 
     await prisma.account.findFirst({
         where: {
-            id: Number(query.id)
+            id: query.id
         },
     }).then(function (resp) {
         res.status(200).json(resp)

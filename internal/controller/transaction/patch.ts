@@ -14,7 +14,7 @@ async function PatchTransactionsStatus(req: express.Request<any, any, IdsStatusB
     await prisma.transaction.updateMany({
         where: {
             id: {
-                in: body.ids.map(i => Number(i))
+                in: body.ids
             },
         },
         data: {
