@@ -3,52 +3,42 @@ import express from "express"
 import {PrismaClientOption} from "../../../main"
 
 
-interface ReadInvoiceById {
+interface IdQuery {
     id: string
 }
 
-interface ReadInvoiceWithPaginationQuery {
+interface PaginationQuery {
     skip: string
     take: string
 }
 
-interface ReadInvoiceWithFuzzyQuery {
+interface FuzzyQuery {
     key: string
 }
 
-interface ReadInvoiceWithPaginationAndFuzzyQuery extends ReadInvoiceWithPaginationQuery, ReadInvoiceWithFuzzyQuery {
+interface PaginationFuzzyQuery extends PaginationQuery, FuzzyQuery {
 
 }
 
-// 按账单编号查询
-async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceById>, res: express.Response, next: express.NextFunction) {
+// 按交易编号查询
+async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.findFirst({
+    await prisma.transaction.findFirst({
         where: {
-            OR: [
-                {
-                    id: query.id
-                }
-            ]
+            id: Number(query.id),
         },
         include: {
-            // 选择部分字段
+            // 查询关系表中的部分字段
             // type: {
             //     select: {
             //         name: true
             //     }
-            // },
-            // account: {
-            //     select: {
-            //         name: true,
-            //         number: true,
-            //         type: true,
-            //         funds: true
-            //     }
             // }
-            // 选择所有字段
+
+            // 查询关系表中的所有字段
+            product: true,
             type: true,
             account: true
         }
@@ -59,12 +49,13 @@ async function ReadInvoiceById(req: express.Request<any, any, any, ReadInvoiceBy
     })
 }
 
-// 查询所有账单
-async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+// 查询所有交易
+async function ReadTransactions(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.findMany({
+    await prisma.transaction.findMany({
         include: {
+            product: true,
             type: true,
             account: true
         }
@@ -76,16 +67,17 @@ async function ReadAllInvoice(req: express.Request<any, any, any, any>, res: exp
         })
 }
 
-// 分页查询所有账单
+// 分页查询所有交易
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
-async function ReadInvoiceWithPagination(req: express.Request<any, any, any, ReadInvoiceWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadTransactionsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.findMany({
+    await prisma.transaction.findMany({
         skip: Number(query.skip),
         take: Number(query.take),
         include: {
+            product: true,
             type: true,
             account: true
         }
@@ -97,15 +89,29 @@ async function ReadInvoiceWithPagination(req: express.Request<any, any, any, Rea
 }
 
 // 模糊查询
-async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvoiceWithFuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
     // 多表关联查询 https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries
     // 查询结果包含拼接的关联表
-    await prisma.invoice.findMany({
+    await prisma.transaction.findMany({
         where: {
             OR: [
+                {
+                    product: {
+                        name: {
+                            contains: query.key
+                        }
+                    }
+                },
+                {
+                    product: {
+                        code: {
+                            contains: query.key
+                        }
+                    }
+                },
                 {
                     type: {
                         name: {
@@ -133,6 +139,7 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
             ]
         },
         include: {
+            product: true,
             type: true,
             account: true
         }
@@ -144,15 +151,29 @@ async function ReadInvoiceWithFuzzy(req: express.Request<any, any, any, ReadInvo
 }
 
 // 模糊分页查询
-async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, any, ReadInvoiceWithPaginationAndFuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.findMany({
+    await prisma.transaction.findMany({
         skip: Number(query.skip),
         take: Number(query.take),
         where: {
             OR: [
+                {
+                    product: {
+                        name: {
+                            contains: query.key
+                        }
+                    }
+                },
+                {
+                    product: {
+                        code: {
+                            contains: query.key
+                        }
+                    }
+                },
                 {
                     type: {
                         name: {
@@ -180,6 +201,7 @@ async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, 
             ]
         },
         include: {
+            product: true,
             type: true,
             account: true
         }
@@ -191,9 +213,9 @@ async function ReadInvoiceWithPaginationAndFuzzy(req: express.Request<any, any, 
 }
 
 export {
-    ReadInvoiceById,
-    ReadAllInvoice,
-    ReadInvoiceWithPagination,
-    ReadInvoiceWithFuzzy,
-    ReadInvoiceWithPaginationAndFuzzy,
+    ReadTransaction,
+    ReadTransactions,
+    ReadTransactionsWithPagination,
+    ReadTransactionsWithFuzzy,
+    ReadTransactionsWithPaginationAndFuzzy,
 }

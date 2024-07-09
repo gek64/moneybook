@@ -1,33 +1,33 @@
 import express from "express"
 import {CreateAccount} from "../controller/account/create"
 import {UpdateAccount} from "../controller/account/update"
-import {DeleteAccount, DeleteManyAccount} from "../controller/account/delete"
+import {DeleteAccount, DeleteAccounts} from "../controller/account/delete"
 import {
-    ReadAccountById,
-    ReadAccountWithFuzzy,
-    ReadAccountWithPagination,
-    ReadAccountWithPaginationAndFuzzy,
-    ReadAllAccount
+    ReadAccount,
+    ReadAccounts,
+    ReadAccountsWithFuzzy,
+    ReadAccountsWithPagination,
+    ReadAccountsWithPaginationAndFuzzy
 } from "../controller/account/read"
 
 const router = express.Router()
 
-// 创建账户
+// 创建
 router.post("/account", CreateAccount)
 
-// 修改账户
+// 修改
 router.put("/account", UpdateAccount)
 
-// 查询账户
-router.get("/account", ReadAccountById)
-router.get("/account/all", ReadAllAccount)
-router.get("/account/pagination", ReadAccountWithPagination)
-router.get("/account/fuzzy", ReadAccountWithFuzzy)
-router.get("/account/paginationAndFuzzy", ReadAccountWithPaginationAndFuzzy)
+// 查询
+router.get("/account", ReadAccount)
+router.get("/accounts", ReadAccounts)
+router.get("/accounts/pagination", ReadAccountsWithPagination)
+router.get("/accounts/fuzzy", ReadAccountsWithFuzzy)
+router.get("/accounts/paginationAndFuzzy", ReadAccountsWithPaginationAndFuzzy)
 
-// 删除账户
+// 删除
 router.delete("/account", DeleteAccount)
-router.delete("/account/many", DeleteManyAccount)
+router.delete("/accounts", DeleteAccounts)
 
 export {
     router

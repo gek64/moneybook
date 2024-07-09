@@ -2,19 +2,19 @@ import express from "express"
 import {PrismaClient} from "@prisma/client"
 import {PrismaClientOption} from "../../../main"
 
-interface PatchInvoicesStatusBody {
+interface IdsStatusBody {
     ids: string[],
     status: string
 }
 
-async function PatchManyInvoicesStatus(req: express.Request<any, any, PatchInvoicesStatusBody, any>, res: express.Response, next: express.NextFunction) {
+async function PatchTransactionsStatus(req: express.Request<any, any, IdsStatusBody, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.updateMany({
+    await prisma.transaction.updateMany({
         where: {
             id: {
-                in: body.ids
+                in: body.ids.map(i => Number(i))
             },
         },
         data: {
@@ -28,5 +28,5 @@ async function PatchManyInvoicesStatus(req: express.Request<any, any, PatchInvoi
 }
 
 export {
-    PatchManyInvoicesStatus
+    PatchTransactionsStatus
 }

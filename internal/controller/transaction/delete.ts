@@ -3,21 +3,20 @@ import express from "express"
 import {PrismaClientOption} from "../../../main"
 
 interface IdQuery {
-    id?: number
-    name?: string
+    id: string
 }
 
 interface IdsQuery {
-    ids: number[]
+    ids: string[]
 }
 
-async function DeleteType(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteTransaction(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.delete({
+    await prisma.transaction.delete({
         where: {
-            id: Number(query.id),
+            id: Number(query.id)
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -26,17 +25,16 @@ async function DeleteType(req: express.Request<any, any, any, IdQuery>, res: exp
     })
 }
 
-async function DeleteTypes(req: express.Request<any, any, any, IdsQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteTransactions(req: express.Request<any, any, any, IdsQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.deleteMany({
-        where:
-            {
-                id: {
-                    in: query.ids.map(i => Number(i))
-                }
+    await prisma.transaction.deleteMany({
+        where: {
+            id: {
+                in: query.ids.map(i => Number(i))
             }
+        },
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
@@ -45,6 +43,6 @@ async function DeleteTypes(req: express.Request<any, any, any, IdsQuery>, res: e
 }
 
 export {
-    DeleteType,
-    DeleteTypes
+    DeleteTransaction,
+    DeleteTransactions
 }

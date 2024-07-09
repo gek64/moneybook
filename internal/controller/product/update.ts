@@ -1,20 +1,20 @@
 import express from "express"
-import {Account, PrismaClient} from "@prisma/client"
+import {PrismaClient, Product} from "@prisma/client"
 import {PrismaClientOption} from "../../../main"
 
-async function UpdateAccount(req: express.Request<any, any, Account, any>, res: express.Response, next: express.NextFunction) {
+async function UpdateProduct(req: express.Request<any, any, Product, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.account.update({
+    await prisma.product.update({
         where: {
             id: Number(body.id),
         },
         data: {
             name: body.name,
-            number: body.number,
-            type: body.type,
-            funds: body.funds,
+            code: body.code,
+            specifications: body.specifications,
+            remark: body.remark
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -24,5 +24,5 @@ async function UpdateAccount(req: express.Request<any, any, Account, any>, res: 
 }
 
 export {
-    UpdateAccount
+    UpdateProduct
 }

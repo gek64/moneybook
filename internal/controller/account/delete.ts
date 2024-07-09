@@ -2,25 +2,21 @@ import {PrismaClient} from "@prisma/client"
 import express from "express"
 import {PrismaClientOption} from "../../../main"
 
-interface DeleteAccountQuery {
+interface IdQuery {
     id: string
 }
 
-interface DeleteManyAccountQuery {
+interface IdsQuery {
     ids: string[]
 }
 
-async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteAccount(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.account.deleteMany({
+    await prisma.account.delete({
         where: {
-            OR: [
-                {
-                    id: query.id
-                }
-            ]
+            id: Number(query.id)
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -29,14 +25,14 @@ async function DeleteAccount(req: express.Request<any, any, any, DeleteAccountQu
     })
 }
 
-async function DeleteManyAccount(req: express.Request<any, any, any, DeleteManyAccountQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteAccounts(req: express.Request<any, any, any, IdsQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.account.deleteMany({
         where: {
             id: {
-                in: query.ids
+                in: query.ids.map(i => Number(i))
             }
         },
     }).then(function (resp) {
@@ -48,5 +44,5 @@ async function DeleteManyAccount(req: express.Request<any, any, any, DeleteManyA
 
 export {
     DeleteAccount,
-    DeleteManyAccount
+    DeleteAccounts
 }

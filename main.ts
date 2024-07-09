@@ -1,6 +1,7 @@
 import * as account from "./internal/router/account"
 import * as type from "./internal/router/type"
-import * as invoice from "./internal/router/invoice"
+import * as transaction from "./internal/router/transaction"
+import * as product from "./internal/router/product"
 import express from "express"
 import cors from "cors"
 import {InvalidArgumentError, program} from "commander"
@@ -40,7 +41,8 @@ function main() {
     // 路由
     app.use(account.router)
     app.use(type.router)
-    app.use(invoice.router)
+    app.use(product.router)
+    app.use(transaction.router)
 
     // 应用启动
     app.listen(program.opts().port, program.opts().address)

@@ -2,21 +2,21 @@ import {PrismaClient} from "@prisma/client"
 import express from "express"
 import {PrismaClientOption} from "../../../main"
 
-interface DeleteInvoiceQuery {
+interface IdQuery {
     id: string
 }
 
-interface DeleteManyInvoiceQuery {
+interface IdsQuery {
     ids: string[]
 }
 
-async function DeleteInvoice(req: express.Request<any, any, any, DeleteInvoiceQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteProduct(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.delete({
+    await prisma.product.delete({
         where: {
-            id: query.id
+            id: Number(query.id),
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -25,14 +25,14 @@ async function DeleteInvoice(req: express.Request<any, any, any, DeleteInvoiceQu
     })
 }
 
-async function DeleteManyInvoice(req: express.Request<any, any, any, DeleteManyInvoiceQuery>, res: express.Response, next: express.NextFunction) {
+async function DeleteProducts(req: express.Request<any, any, any, IdsQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.deleteMany({
+    await prisma.product.deleteMany({
         where: {
             id: {
-                in: query.ids
+                in: query.ids.map(i => Number(i))
             }
         },
     }).then(function (resp) {
@@ -43,6 +43,6 @@ async function DeleteManyInvoice(req: express.Request<any, any, any, DeleteManyI
 }
 
 export {
-    DeleteInvoice,
-    DeleteManyInvoice
+    DeleteProduct,
+    DeleteProducts
 }

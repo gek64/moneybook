@@ -17,17 +17,16 @@ interface FuzzyQuery {
 }
 
 interface PaginationFuzzyQuery extends PaginationQuery, FuzzyQuery {
-
 }
 
-// 按类型编号查询
-async function ReadType(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
+// 按编号查询
+async function ReadProduct(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.findFirst({
+    await prisma.product.findFirst({
         where: {
-            id: Number(query.id),
+            id: Number(query.id)
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -36,11 +35,11 @@ async function ReadType(req: express.Request<any, any, any, IdQuery>, res: expre
     })
 }
 
-// 查询所有类型
-async function ReadTypes(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+// 查询所有
+async function ReadProducts(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.findMany({})
+    await prisma.product.findMany({})
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
@@ -48,13 +47,12 @@ async function ReadTypes(req: express.Request<any, any, any, any>, res: express.
         })
 }
 
-// 分页查询所有类型
-// https://www.prisma.io/docs/concepts/components/prisma-client/pagination
-async function ReadTypesWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
+// 分页查询
+async function ReadProductsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.findMany({
+    await prisma.product.findMany({
         skip: Number(query.skip),
         take: Number(query.take),
     }).then(function (resp) {
@@ -65,15 +63,24 @@ async function ReadTypesWithPagination(req: express.Request<any, any, any, Pagin
 }
 
 // 模糊查询
-async function ReadTypesWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadProductsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.findMany({
+    await prisma.product.findMany({
         where: {
-            name: {
-                contains: query.key
-            }
+            OR: [
+                {
+                    name: {
+                        contains: query.key
+                    }
+                },
+                {
+                    code: {
+                        contains: query.key
+                    }
+                }
+            ]
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -83,17 +90,26 @@ async function ReadTypesWithFuzzy(req: express.Request<any, any, any, FuzzyQuery
 }
 
 // 模糊分页查询
-async function ReadTypesWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadProductsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.type.findMany({
+    await prisma.product.findMany({
         skip: Number(query.skip),
         take: Number(query.take),
         where: {
-            name: {
-                contains: query.key
-            }
+            OR: [
+                {
+                    name: {
+                        contains: query.key
+                    }
+                },
+                {
+                    code: {
+                        contains: query.key
+                    }
+                }
+            ]
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -103,9 +119,9 @@ async function ReadTypesWithPaginationAndFuzzy(req: express.Request<any, any, an
 }
 
 export {
-    ReadType,
-    ReadTypes,
-    ReadTypesWithPagination,
-    ReadTypesWithFuzzy,
-    ReadTypesWithPaginationAndFuzzy,
+    ReadProduct,
+    ReadProducts,
+    ReadProductsWithPagination,
+    ReadProductsWithFuzzy,
+    ReadProductsWithPaginationAndFuzzy,
 }

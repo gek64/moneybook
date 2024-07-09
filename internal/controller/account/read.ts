@@ -3,34 +3,30 @@ import express from "express"
 import {PrismaClientOption} from "../../../main"
 
 
-interface ReadAccountByIdQuery {
+interface IdQuery {
     id: string
 }
 
-interface ReadAccountWithPaginationQuery {
+interface PaginationQuery {
     skip: string
     take: string
 }
 
-interface ReadAccountWithFuzzyQuery {
+interface FuzzyQuery {
     key: string
 }
 
-interface ReadAccountWithPaginationAndFuzzyQuery extends ReadAccountWithPaginationQuery, ReadAccountWithFuzzyQuery {
+interface PaginationFuzzyQuery extends PaginationQuery, FuzzyQuery {
 }
 
 // 按账户编号查询
-async function ReadAccountById(req: express.Request<any, any, any, ReadAccountByIdQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadAccount(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.account.findFirst({
         where: {
-            OR: [
-                {
-                    id: query.id
-                }
-            ]
+            id: Number(query.id)
         },
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -40,7 +36,7 @@ async function ReadAccountById(req: express.Request<any, any, any, ReadAccountBy
 }
 
 // 查询所有用户
-async function ReadAllAccount(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
+async function ReadAccounts(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
     const prisma = new PrismaClient(PrismaClientOption)
 
     await prisma.account.findMany({})
@@ -53,7 +49,7 @@ async function ReadAllAccount(req: express.Request<any, any, any, any>, res: exp
 
 // 分页查询所有账户
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
-async function ReadAccountWithPagination(req: express.Request<any, any, any, ReadAccountWithPaginationQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadAccountsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
@@ -68,7 +64,7 @@ async function ReadAccountWithPagination(req: express.Request<any, any, any, Rea
 }
 
 // 模糊查询
-async function ReadAccountWithFuzzy(req: express.Request<any, any, any, ReadAccountWithFuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadAccountsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
@@ -100,7 +96,7 @@ async function ReadAccountWithFuzzy(req: express.Request<any, any, any, ReadAcco
 }
 
 // 模糊分页查询
-async function ReadAccountWithPaginationAndFuzzy(req: express.Request<any, any, any, ReadAccountWithPaginationAndFuzzyQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadAccountsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
@@ -134,9 +130,9 @@ async function ReadAccountWithPaginationAndFuzzy(req: express.Request<any, any, 
 }
 
 export {
-    ReadAccountById,
-    ReadAllAccount,
-    ReadAccountWithPagination,
-    ReadAccountWithFuzzy,
-    ReadAccountWithPaginationAndFuzzy,
+    ReadAccount,
+    ReadAccounts,
+    ReadAccountsWithPagination,
+    ReadAccountsWithFuzzy,
+    ReadAccountsWithPaginationAndFuzzy,
 }

@@ -4,34 +4,45 @@ datasource db {
 }
 
 // https://www.prisma.io/docs/orm/reference/prisma-schema-reference#binarytargets-options
-generator client-native {
+generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x", "linux-arm64-openssl-3.0.x"]
+  binaryTargets = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
-model Invoice {
-  id        String    @id @default(cuid())
+model Transaction {
+  id        Int       @id @default(autoincrement())
   title     String
+  product   Product?  @relation(fields: [productId], references: [id])
+  productId Int?
   type      Type      @relation(fields: [typeId], references: [id])
-  typeId    String
+  typeId    Int
   account   Account   @relation(fields: [accountId], references: [id])
-  accountId String
+  accountId Int
   amount    Float
   datetime  DateTime? @default(now())
   status    String?
 }
 
-model Account {
-  id      String    @id @default(cuid())
-  name    String
-  number  String?
-  type    String
-  funds   Float?
-  Invoice Invoice[]
+model Product {
+  id             Int           @id @default(autoincrement())
+  name           String
+  code           String?
+  specifications String?
+  remark         String?
+  Transaction    Transaction[]
 }
 
 model Type {
-  id      String    @id @default(cuid())
-  name    String
-  Invoice Invoice[]
+  id          Int           @id @default(autoincrement())
+  name        String
+  Transaction Transaction[]
+}
+
+model Account {
+  id          Int           @id @default(autoincrement())
+  name        String
+  number      String?
+  type        String
+  funds       Float?
+  Transaction Transaction[]
 }

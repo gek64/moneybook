@@ -1,17 +1,18 @@
 import express from "express"
-import {Invoice, PrismaClient} from "@prisma/client"
+import {PrismaClient, Transaction} from "@prisma/client"
 import {PrismaClientOption} from "../../../main"
 
-async function UpdateInvoice(req: express.Request<any, any, Invoice, any>, res: express.Response, next: express.NextFunction) {
+async function UpdateTransaction(req: express.Request<any, any, Transaction, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
     const prisma = new PrismaClient(PrismaClientOption)
 
-    await prisma.invoice.update({
+    await prisma.transaction.update({
         where: {
-            id: body.id,
+            id: Number(body.id),
         },
         data: {
             title: body.title,
+            productId: body.productId,
             typeId: body.typeId,
             accountId: body.accountId,
             amount: body.amount,
@@ -26,5 +27,5 @@ async function UpdateInvoice(req: express.Request<any, any, Invoice, any>, res: 
 }
 
 export {
-    UpdateInvoice
+    UpdateTransaction
 }
