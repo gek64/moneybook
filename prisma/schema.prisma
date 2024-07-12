@@ -9,35 +9,49 @@ generator client {
   binaryTargets = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
+// 交易表
 model Transaction {
-  id        String    @id @default(cuid())
-  title     String
-  product   Product?  @relation(fields: [productId], references: [id])
-  productId String?
-  type      Type      @relation(fields: [typeId], references: [id])
-  typeId    String
-  account   Account   @relation(fields: [accountId], references: [id])
-  accountId String
-  amount    Float
-  datetime  DateTime? @default(now())
-  status    String?
+  id                   String                 @id @default(cuid())
+  title                String
+  type                 Type                   @relation(fields: [typeId], references: [id])
+  typeId               String
+  account              Account                @relation(fields: [accountId], references: [id])
+  accountId            String
+  amount               Float
+  datetime             DateTime?              @default(now())
+  status               String?
+  ProductOnTransaction ProductOnTransaction[]
 }
 
+// 商品表
 model Product {
-  id             String        @id @default(cuid())
-  name           String
-  code           String?
-  specifications String?
-  remark         String?
-  Transaction    Transaction[]
+  id                   String                 @id @default(cuid())
+  name                 String
+  code                 String?
+  specifications       String?
+  remark               String?
+  ProductOnTransaction ProductOnTransaction[]
 }
 
+// 交易-商品多对多关联表
+model ProductOnTransaction {
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  transactionId String
+  product       Product     @relation(fields: [productId], references: [id])
+  productId     String
+  assignedAt    DateTime?   @default(now())
+
+  @@id([transactionId, productId])
+}
+
+// 类型表
 model Type {
   id          String        @id @default(cuid())
   name        String
   Transaction Transaction[]
 }
 
+// 账户表
 model Account {
   id          String        @id @default(cuid())
   name        String

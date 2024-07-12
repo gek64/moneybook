@@ -1,6 +1,6 @@
 {
   "name": "moneybook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "money book backend server",
   "main": "main.ts",
   "scripts": {
@@ -8,7 +8,7 @@
     "update": "npx -y pnpm update",
     "prisma:generate": "prisma generate --generator client",
     "prisma:push": "prisma db push",
-    "start": "ts-node main",
+    "start": "ts-node main -db mysql://root:root@localhost:3306/moneybook",
     "build": "node build",
     "clean": "tsc --build --clean"
   },

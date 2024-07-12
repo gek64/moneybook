@@ -30,17 +30,13 @@ async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res
             id: query.id,
         },
         include: {
-            // 查询关系表中的部分字段
-            // type: {
-            //     select: {
-            //         name: true
-            //     }
-            // }
-
-            // 查询关系表中的所有字段
-            product: true,
             type: true,
-            account: true
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -55,9 +51,13 @@ async function ReadTransactions(req: express.Request<any, any, any, any>, res: e
 
     await prisma.transaction.findMany({
         include: {
-            product: true,
             type: true,
-            account: true
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
         }
     })
         .then(function (resp) {
@@ -77,9 +77,13 @@ async function ReadTransactionsWithPagination(req: express.Request<any, any, any
         skip: Number(query.skip),
         take: Number(query.take),
         include: {
-            product: true,
             type: true,
-            account: true
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -99,49 +103,42 @@ async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, Fuz
         where: {
             OR: [
                 {
-                    product: {
-                        name: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
-                    product: {
-                        code: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
-                    type: {
-                        name: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
-                    account: {
-                        name: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
                     title: {
                         contains: query.key
                     }
                 },
                 {
-                    status: {
-                        contains: query.key
+                    ProductOnTransaction: {
+                        some: {
+                            product: {
+                                name: {
+                                    contains: query.key
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    ProductOnTransaction: {
+                        some: {
+                            product: {
+                                code: {
+                                    contains: query.key
+                                }
+                            }
+                        }
                     }
                 }
             ]
         },
         include: {
-            product: true,
             type: true,
-            account: true
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
         }
     }).then(function (resp) {
         res.status(200).json(resp)
@@ -161,49 +158,42 @@ async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, 
         where: {
             OR: [
                 {
-                    product: {
-                        name: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
-                    product: {
-                        code: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
-                    type: {
-                        name: {
-                            contains: query.key
-                        }
-                    },
-                },
-                {
-                    account: {
-                        name: {
-                            contains: query.key
-                        }
-                    }
-                },
-                {
                     title: {
                         contains: query.key
                     }
                 },
                 {
-                    status: {
-                        contains: query.key
+                    ProductOnTransaction: {
+                        some: {
+                            product: {
+                                name: {
+                                    contains: query.key
+                                }
+                            }
+                        }
                     }
                 },
+                {
+                    ProductOnTransaction: {
+                        some: {
+                            product: {
+                                code: {
+                                    contains: query.key
+                                }
+                            }
+                        }
+                    }
+                }
             ]
         },
         include: {
-            product: true,
             type: true,
-            account: true
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
         }
     }).then(function (resp) {
         res.status(200).json(resp)
