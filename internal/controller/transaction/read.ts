@@ -1,10 +1,21 @@
-import {PrismaClient} from "@prisma/client"
+import {Prisma, PrismaClient} from "@prisma/client"
 import express from "express"
 import {PrismaClientOption} from "../../../main"
 
 
 interface IdQuery {
     id: string
+}
+
+interface ConditionQuery {
+    ids?: string | string[]
+    title?: string
+    productIds?: string | string[]
+    typeIds?: string | string[]
+    accountIds?: string | string[]
+    startTime?: string
+    endTime?: string
+    status?: string | string[]
 }
 
 interface PaginationQuery {
@@ -67,6 +78,59 @@ async function ReadTransactions(req: express.Request<any, any, any, any>, res: e
         })
 }
 
+// 多条件查询所有交易
+async function ReadTransactionsWithCondition(req: express.Request<any, any, any, ConditionQuery>, res: express.Response, next: express.NextFunction) {
+    const query = req.query
+    const prisma = new PrismaClient(PrismaClientOption)
+
+    // https://github.com/prisma/prisma/discussions/11429
+    // 或许也可以考虑使用扩展 https://www.prisma.io/docs/orm/prisma-client/client-extensions
+    const generateRelationFilter = (list: string[], relationName: string, column: string) => list?.map((listElement) => ({
+        [relationName]: {
+            some: {
+                [column]: {
+                    equals: listElement
+                }
+            }
+        }
+    }))
+
+    // query.x 为字符串时转换为单元素数组, 为数组时无改变
+    query.ids = query.ids === undefined ? undefined : [].concat(query.ids)
+    query.productIds = query.productIds === undefined ? undefined : [].concat(query.productIds)
+    query.typeIds = query.typeIds === undefined ? undefined : [].concat(query.typeIds)
+    query.accountIds = query.accountIds === undefined ? undefined : [].concat(query.accountIds)
+    query.status = query.status === undefined ? undefined : [].concat(query.status)
+
+    await prisma.transaction.findMany({
+        where: {
+            AND: [
+                {id: {in: query?.ids}},
+                {title: {contains: query?.title}},
+                {AND: generateRelationFilter(query?.productIds, Prisma.ModelName.ProductOnTransaction, Prisma.ProductOnTransactionScalarFieldEnum.productId)},
+                {typeId: {in: query?.typeIds}},
+                {accountId: {in: query?.accountIds}},
+                {datetime: {gte: isNaN(Date.parse(query?.startTime)) ? undefined : new Date(query?.startTime)}},
+                {datetime: {lte: isNaN(Date.parse(query?.endTime)) ? undefined : new Date(query?.endTime)}},
+                {status: {in: query?.status}}
+            ]
+        },
+        include: {
+            type: true,
+            account: true,
+            ProductOnTransaction: {
+                select: {
+                    product: true
+                }
+            }
+        }
+    }).then(function (resp) {
+        res.status(200).json(resp)
+    }).catch(function (err) {
+        res.status(403).type("text/plain").send(err.toString())
+    })
+}
+
 // 分页查询所有交易
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadTransactionsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
@@ -92,7 +156,7 @@ async function ReadTransactionsWithPagination(req: express.Request<any, any, any
     })
 }
 
-// 模糊查询
+// 模糊查询所有交易
 async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
@@ -147,7 +211,7 @@ async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, Fuz
     })
 }
 
-// 模糊分页查询
+// 模糊分页查询所有交易
 async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
@@ -205,6 +269,7 @@ async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, 
 export {
     ReadTransaction,
     ReadTransactions,
+    ReadTransactionsWithCondition,
     ReadTransactionsWithPagination,
     ReadTransactionsWithFuzzy,
     ReadTransactionsWithPaginationAndFuzzy,
