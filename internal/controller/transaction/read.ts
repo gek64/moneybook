@@ -79,7 +79,7 @@ async function ReadTransactions(req: express.Request<any, any, any, any>, res: e
 }
 
 // 多条件查询所有交易
-async function ReadTransactionsWithCondition(req: express.Request<any, any, any, ConditionQuery>, res: express.Response, next: express.NextFunction) {
+async function ReadTransactionsWithConditions(req: express.Request<any, any, any, ConditionQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
     const prisma = new PrismaClient(PrismaClientOption)
 
@@ -269,7 +269,7 @@ async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, 
 export {
     ReadTransaction,
     ReadTransactions,
-    ReadTransactionsWithCondition,
+    ReadTransactionsWithConditions,
     ReadTransactionsWithPagination,
     ReadTransactionsWithFuzzy,
     ReadTransactionsWithPaginationAndFuzzy,

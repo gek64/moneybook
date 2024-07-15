@@ -5,7 +5,7 @@ import {DeleteTransaction, DeleteTransactions} from "../controller/transaction/d
 import {
     ReadTransaction,
     ReadTransactions,
-    ReadTransactionsWithCondition,
+    ReadTransactionsWithConditions,
     ReadTransactionsWithFuzzy,
     ReadTransactionsWithPagination,
     ReadTransactionsWithPaginationAndFuzzy
@@ -26,7 +26,7 @@ router.patch("/transactions/status", PatchTransactionsStatus)
 // 查询
 router.get("/transaction", ReadTransaction)
 router.get("/transactions", ReadTransactions)
-router.get("/transactions/condition", ReadTransactionsWithCondition)
+router.get("/transactions/conditions", ReadTransactionsWithConditions)
 router.get("/transactions/pagination", ReadTransactionsWithPagination)
 router.get("/transactions/fuzzy", ReadTransactionsWithFuzzy)
 router.get("/transactions/paginationAndFuzzy", ReadTransactionsWithPaginationAndFuzzy)
