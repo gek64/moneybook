@@ -46,6 +46,10 @@ async function DeleteTransactions(req: express.Request<any, any, any, IdsQuery>,
     const prisma = new PrismaClient(PrismaClientOption)
 
     // query.ids 为字符串时转换为单元素数组, 为数组时无改变
+    if (query.ids === undefined) {
+        res.status(403).type("text/plain").send("ids not found in query")
+        return
+    }
     query.ids = [].concat(query.ids)
 
     // 先删除交易-商品关系表中的关系数据

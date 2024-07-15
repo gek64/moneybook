@@ -31,6 +31,10 @@ async function DeleteAccounts(req: express.Request<any, any, any, IdsQuery>, res
     const prisma = new PrismaClient(PrismaClientOption)
 
     // query.ids 为字符串时转换为单元素数组, 为数组时无改变
+    if (query.ids === undefined) {
+        res.status(403).type("text/plain").send("ids not found in query")
+        return
+    }
     query.ids = [].concat(query.ids)
 
     await prisma.account.deleteMany({
