@@ -59,7 +59,6 @@ jobs:
           cp node_modules/prisma/*.node dist
           # 压缩
           zip -9 moneybook.zip dist/*
-          
           # 获取sha256 checksum
           sha256sum moneybook.zip > SHA256SUMS.txt
 
