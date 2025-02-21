@@ -21,8 +21,8 @@ function parsePort(value: string) {
 function main() {
     // 处理命令行参数
     program
-        .requiredOption("-db, --database <string>", "mysql or mariadb data source")
-        .option("-addr --address [string]", "ip address", "localhost")
+        .requiredOption("-db, --database <string>", "database source url")
+        .option("-addr --address [string]", "ip address", "127.0.0.1")
         .option("-p, --port [number]", "port", parsePort, 8000)
         .action(() => {
             PrismaClientOption.datasources.db.url = program.opts().database
