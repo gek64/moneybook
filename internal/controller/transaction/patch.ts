@@ -23,7 +23,7 @@ async function PatchTransactionsStatus(req: express.Request<any, any, IdsStatusB
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

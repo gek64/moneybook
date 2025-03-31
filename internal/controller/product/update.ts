@@ -19,7 +19,7 @@ async function UpdateProduct(req: express.Request<any, any, Product, any>, res: 
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

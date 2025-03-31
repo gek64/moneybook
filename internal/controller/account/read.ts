@@ -31,7 +31,7 @@ async function ReadAccount(req: express.Request<any, any, any, IdQuery>, res: ex
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -43,7 +43,7 @@ async function ReadAccounts(req: express.Request<any, any, any, any>, res: expre
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
-            res.status(403).type("text/plain").send(err.toString())
+            res.status(400).type("text/plain").send(err.toString())
         })
 }
 
@@ -59,7 +59,7 @@ async function ReadAccountsWithPagination(req: express.Request<any, any, any, Pa
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -91,7 +91,7 @@ async function ReadAccountsWithFuzzy(req: express.Request<any, any, any, FuzzyQu
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -125,7 +125,7 @@ async function ReadAccountsWithPaginationAndFuzzy(req: express.Request<any, any,
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

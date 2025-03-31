@@ -26,9 +26,9 @@ async function CreateTransaction(req: express.Request<any, any, TransactionWithP
             }
         }
     }).then(function (resp) {
-        res.status(200).json(resp)
+        res.status(201).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

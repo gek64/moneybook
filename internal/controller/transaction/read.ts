@@ -52,7 +52,7 @@ async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -74,7 +74,7 @@ async function ReadTransactions(req: express.Request<any, any, any, any>, res: e
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
-            res.status(403).type("text/plain").send(err.toString())
+            res.status(400).type("text/plain").send(err.toString())
         })
 }
 
@@ -127,7 +127,7 @@ async function ReadTransactionsWithConditions(req: express.Request<any, any, any
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -152,7 +152,7 @@ async function ReadTransactionsWithPagination(req: express.Request<any, any, any
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -207,7 +207,7 @@ async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, Fuz
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -262,7 +262,7 @@ async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, 
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

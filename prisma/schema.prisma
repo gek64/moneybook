@@ -1,11 +1,11 @@
 datasource db {
   // mysql
-  // provider = "mysql"
-  // url      = "mysql://root:root@localhost:3306/moneybook"
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:3306/moneybook"
 
   // sqlite
-  provider = "sqlite"
-  url      = "file:./moneybook.db"
+  // provider = "sqlite"
+  // url      = "file:./moneybook.db"
 }
 
 // https://www.prisma.io/docs/orm/reference/prisma-schema-reference#binarytargets-options

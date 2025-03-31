@@ -32,7 +32,7 @@ async function ReadType(req: express.Request<any, any, any, IdQuery>, res: expre
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -44,7 +44,7 @@ async function ReadTypes(req: express.Request<any, any, any, any>, res: express.
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
-            res.status(403).type("text/plain").send(err.toString())
+            res.status(400).type("text/plain").send(err.toString())
         })
 }
 
@@ -60,7 +60,7 @@ async function ReadTypesWithPagination(req: express.Request<any, any, any, Pagin
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -78,7 +78,7 @@ async function ReadTypesWithFuzzy(req: express.Request<any, any, any, FuzzyQuery
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -98,7 +98,7 @@ async function ReadTypesWithPaginationAndFuzzy(req: express.Request<any, any, an
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

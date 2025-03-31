@@ -23,7 +23,7 @@ async function DeleteType(req: express.Request<any, any, any, IdQuery>, res: exp
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -33,7 +33,7 @@ async function DeleteTypes(req: express.Request<any, any, any, IdsQuery>, res: e
 
     // query.ids 为字符串时转换为单元素数组, 为数组时无改变
     if (query.ids === undefined) {
-        res.status(403).type("text/plain").send("ids not found in query")
+        res.status(400).type("text/plain").send("ids not found in query")
         return
     }
     query.ids = [].concat(query.ids)
@@ -48,7 +48,7 @@ async function DeleteTypes(req: express.Request<any, any, any, IdsQuery>, res: e
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

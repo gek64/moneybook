@@ -14,9 +14,9 @@ async function CreateProduct(req: express.Request<any, any, Product, any>, res: 
             remark: body.remark
         }
     }).then(function (resp) {
-        res.status(200).json(resp)
+        res.status(201).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 

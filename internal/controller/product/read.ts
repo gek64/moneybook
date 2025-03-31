@@ -31,7 +31,7 @@ async function ReadProduct(req: express.Request<any, any, any, IdQuery>, res: ex
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -43,7 +43,7 @@ async function ReadProducts(req: express.Request<any, any, any, any>, res: expre
         .then(function (resp) {
             res.status(200).json(resp)
         }).catch(function (err) {
-            res.status(403).type("text/plain").send(err.toString())
+            res.status(400).type("text/plain").send(err.toString())
         })
 }
 
@@ -58,7 +58,7 @@ async function ReadProductsWithPagination(req: express.Request<any, any, any, Pa
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -85,7 +85,7 @@ async function ReadProductsWithFuzzy(req: express.Request<any, any, any, FuzzyQu
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
@@ -114,7 +114,7 @@ async function ReadProductsWithPaginationAndFuzzy(req: express.Request<any, any,
     }).then(function (resp) {
         res.status(200).json(resp)
     }).catch(function (err) {
-        res.status(403).type("text/plain").send(err.toString())
+        res.status(400).type("text/plain").send(err.toString())
     })
 }
 
