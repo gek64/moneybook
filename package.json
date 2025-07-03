@@ -13,19 +13,19 @@
     "clean": "tsc --build --clean"
   },
   "dependencies": {
-    "@prisma/client": "^6.5.0",
+    "@prisma/client": "^6.11.0",
     "commander": "^12.1.0",
     "cors": "^2.8.5",
     "express": "^4.21.2"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.17.28",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.23",
+    "@types/node": "^20.19.4",
     "@vercel/ncc": "^0.38.3",
-    "pnpm": "^10.7.0",
-    "prisma": "^6.5.0",
+    "pnpm": "^10.12.4",
+    "prisma": "^6.11.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }

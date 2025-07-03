@@ -5,7 +5,7 @@ After=network.target network-online.target
 [Service]
 Environment="M_ADDR=0.0.0.0"
 Environment="M_PORT=8000"
-Environment="M_DATABASE=mysql://root:root@192.168.1.2:3306/moneybook"
+Environment="M_DATABASE=mysql://root:root@nas.internal:3306/moneybook"
 Type=simple
 User=root
 WorkingDirectory=/usr/local/bin/moneybook

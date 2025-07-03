@@ -4,7 +4,7 @@
 # env
 M_ADDR="0.0.0.0"
 M_PORT="8000"
-M_DATABASE="mysql://root:root@192.168.1.2:3306/moneybook"
+M_DATABASE="mysql://root:root@nas.internal:3306/moneybook"
 
 command="node"
 command_args="index.js -addr ${M_ADDR} -p ${M_PORT} -db ${M_DATABASE}"
