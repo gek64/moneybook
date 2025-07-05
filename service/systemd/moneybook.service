@@ -9,7 +9,7 @@ Environment="M_DATABASE=mysql://root:root@localhost:3306/moneybook"
 Type=simple
 User=root
 WorkingDirectory=/usr/local/bin/moneybook
-ExecStart=/usr/bin/node index.js -addr ${M_ADDR} -p ${M_PORT} -db ${M_DATABASE}
+ExecStart=node index.js -addr ${M_ADDR} -p ${M_PORT} -db ${M_DATABASE}
 
 [Install]
 WantedBy=multi-user.target
