@@ -1,12 +1,14 @@
+import express from "express"
+import cors from "cors"
 import * as account from "./internal/router/account"
 import * as type from "./internal/router/type"
 import * as transaction from "./internal/router/transaction"
 import * as product from "./internal/router/product"
-import express from "express"
-import cors from "cors"
+import {PrismaMariaDb} from "@prisma/adapter-mariadb"
 import {InvalidArgumentError, program} from "commander"
 
-const PrismaClientOption = {datasources: {db: {url: ""}}}
+const adapter = new PrismaMariaDb("mysql://root:root@localhost:3306/moneybook")
+const PrismaDBAdapter = {adapter}
 
 function parsePort(value: string) {
     const parsedValue = parseInt(value)
@@ -25,7 +27,7 @@ function main() {
         .option("-a --address [string]", "ip address", "127.0.0.1")
         .option("-p, --port [number]", "port", parsePort, 8000)
         .action(() => {
-            PrismaClientOption.datasources.db.url = program.opts().database
+            PrismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
         })
     program.parse()
 
@@ -51,5 +53,5 @@ function main() {
 main()
 
 export {
-    PrismaClientOption
+    PrismaDBAdapter
 }

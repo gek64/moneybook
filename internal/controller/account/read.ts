@@ -1,6 +1,6 @@
-import {PrismaClient} from "@prisma/client"
 import express from "express"
-import {PrismaClientOption} from "../../../main"
+import {PrismaDBAdapter} from "../../../main"
+import {PrismaClient} from "../../../prisma/generated/client/client"
 
 
 interface IdQuery {
@@ -22,7 +22,7 @@ interface PaginationFuzzyQuery extends PaginationQuery, FuzzyQuery {
 // 按账户编号查询
 async function ReadAccount(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.account.findFirst({
         where: {
@@ -37,7 +37,7 @@ async function ReadAccount(req: express.Request<any, any, any, IdQuery>, res: ex
 
 // 查询所有用户
 async function ReadAccounts(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.account.findMany({})
         .then(function (resp) {
@@ -51,7 +51,7 @@ async function ReadAccounts(req: express.Request<any, any, any, any>, res: expre
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadAccountsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.account.findMany({
         skip: Number(query.skip),
@@ -66,7 +66,7 @@ async function ReadAccountsWithPagination(req: express.Request<any, any, any, Pa
 // 模糊查询
 async function ReadAccountsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.account.findMany({
         where: {
@@ -98,7 +98,7 @@ async function ReadAccountsWithFuzzy(req: express.Request<any, any, any, FuzzyQu
 // 模糊分页查询
 async function ReadAccountsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.account.findMany({
         skip: Number(query.skip),

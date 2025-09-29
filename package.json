@@ -6,13 +6,14 @@
   "scripts": {
     "init": "npx -y pnpm install",
     "update": "npx -y pnpm update",
-    "prisma:generate": "prisma generate --generator client",
+    "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "start": "ts-node main -d mysql://root:root@localhost:3306/moneybook",
     "build": "node build",
     "clean": "tsc --build --clean"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^6.16.2",
     "@prisma/client": "^6.16.2",
     "commander": "^14.0.1",
     "cors": "^2.8.5",

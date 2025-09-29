@@ -1,7 +1,6 @@
-import {Prisma, PrismaClient} from "@prisma/client"
 import express from "express"
-import {PrismaClientOption} from "../../../main"
-
+import {PrismaDBAdapter} from "../../../main"
+import {Prisma, PrismaClient} from "../../../prisma/generated/client/client"
 
 interface IdQuery {
     id: string
@@ -34,7 +33,7 @@ interface PaginationFuzzyQuery extends PaginationQuery, FuzzyQuery {
 // 按交易编号查询
 async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.findFirst({
         where: {
@@ -58,7 +57,7 @@ async function ReadTransaction(req: express.Request<any, any, any, IdQuery>, res
 
 // 查询所有交易
 async function ReadTransactions(req: express.Request<any, any, any, any>, res: express.Response, next: express.NextFunction) {
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.findMany({
         include: {
@@ -81,7 +80,7 @@ async function ReadTransactions(req: express.Request<any, any, any, any>, res: e
 // 多条件查询所有交易
 async function ReadTransactionsWithConditions(req: express.Request<any, any, any, ConditionQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     // https://github.com/prisma/prisma/discussions/11429
     // 或许也可以考虑使用扩展 https://www.prisma.io/docs/orm/prisma-client/client-extensions
@@ -135,7 +134,7 @@ async function ReadTransactionsWithConditions(req: express.Request<any, any, any
 // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 async function ReadTransactionsWithPagination(req: express.Request<any, any, any, PaginationQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.findMany({
         skip: Number(query.skip),
@@ -159,7 +158,7 @@ async function ReadTransactionsWithPagination(req: express.Request<any, any, any
 // 模糊查询所有交易
 async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, FuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     // 多表关联查询 https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries
     // 查询结果包含拼接的关联表
@@ -214,7 +213,7 @@ async function ReadTransactionsWithFuzzy(req: express.Request<any, any, any, Fuz
 // 模糊分页查询所有交易
 async function ReadTransactionsWithPaginationAndFuzzy(req: express.Request<any, any, any, PaginationFuzzyQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.findMany({
         skip: Number(query.skip),

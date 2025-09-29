@@ -2,16 +2,13 @@ datasource db {
   // mysql
   provider = "mysql"
   url      = "mysql://root:root@localhost:3306/moneybook"
-
-  // sqlite
-  // provider = "sqlite"
-  // url      = "file:./moneybook.db"
 }
 
-// https://www.prisma.io/docs/orm/reference/prisma-schema-reference#binarytargets-options
+// https://www.prisma.io/docs/orm/reference/prisma-schema-reference#generator
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "rhel-openssl-1.1.x", "rhel-openssl-3.0.x"]
+  provider   = "prisma-client"
+  output     = "generated/client"
+  engineType = "client"
 }
 
 // 交易表

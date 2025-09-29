@@ -1,10 +1,11 @@
 import express from "express"
-import {PrismaClient, Type} from "@prisma/client"
-import {PrismaClientOption} from "../../../main"
+import {PrismaDBAdapter} from "../../../main"
+import {PrismaClient} from "../../../prisma/generated/client/client"
+import {TypeModel} from "../../../prisma/generated/client/models"
 
-async function UpdateType(req: express.Request<any, any, Type, any>, res: express.Response, next: express.NextFunction) {
+async function UpdateType(req: express.Request<any, any, TypeModel, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
-    const prisma = new PrismaClient(PrismaClientOption)
+    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.type.update({
         where: {
