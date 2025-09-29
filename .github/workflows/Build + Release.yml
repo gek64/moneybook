@@ -1,0 +1,59 @@
+name: Build + Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.git**'
+      - 'service/**'
+      - '**.md'
+      - 'LICENSE'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'release version'
+        required: false
+        default: 'latest'
+        # use ${{ inputs.version }}
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@latest
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@latest
+        with:
+          node-version: '*'
+
+      - name: Remove old Releases
+        uses: dev-drprasad/delete-older-releases@latest
+        with:
+          keep_latest: 0
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: |
+          npm run build
+          tar -zcvf "./moneybook.tar.gz" -C "dist" index.js
+
+      - name: Release
+        uses: ncipollo/release-action@latest
+        with:
+          artifacts: "moneybook.tar.gz"
+          tag: "latest"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          generateReleaseNotes: true
+          removeArtifacts: true
+          replacesArtifacts: true
+
+      - name: Remove old artifacts
+        uses: c-hive/gha-remove-artifacts@latest
+        with:
+          age: "0s"

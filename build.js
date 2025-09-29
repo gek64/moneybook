@@ -34,9 +34,9 @@ function rm(path) {
 
 function build() {
     run("npx -y pnpm install")
-    run("prisma generate")
-    run("tsc --build --clean")
-    run("ncc build main.ts")
+    run("npx prisma generate")
+    run("npx tsc --build --clean")
+    run("npx ncc build main.ts")
 }
 
 build()
