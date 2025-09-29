@@ -25,10 +25,10 @@ node /usr/local/bin/moneybook/index.js -a 0.0.0.0 -p 8000 -d mysql://root:root@1
 Usage: moneybook [options]
 
 Options:
-  -d, --database <string>  mysql or mariadb data source     
-  -a --address [string]  ip address (default: "localhost")
-  -p, --port [number]       port (default: 8000)
-  -h, --help                display help for command
+  -d, --database <string>  database source url
+  -a, --address [string]   ip address (default: "127.0.0.1")
+  -p, --port [number]      port (default: 8000)
+  -h, --help               display help for command
 
 Dev start:
   npm run start -- -a 0.0.0.0 -p 8000 -d mysql://root:root@192.168.1.2:3306/moneybook

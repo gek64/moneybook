@@ -44,4 +44,16 @@ jobs:
           # create release
           gh release create "latest" --generate-notes "./moneybook.tar.gz"
 
-          echo ${{ inputs.version }}
+
+          echo "${{ inputs.version }}"
+
+          if [ "${{ inputs.version }}" != "" ]; then
+            echo 1
+            echo "${{ inputs.version }}"
+          elif [ "${{ inputs.version }}" != null ]; then
+            echo 2
+            echo "${{ inputs.version }}"
+          else
+            echo 3
+            echo "${{ inputs.version }}"
+          fi

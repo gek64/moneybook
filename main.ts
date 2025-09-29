@@ -24,7 +24,7 @@ function main() {
     // 处理命令行参数
     program
         .requiredOption("-d, --database <string>", "database source url")
-        .option("-a --address [string]", "ip address", "127.0.0.1")
+        .option("-a, --address [string]", "ip address", "127.0.0.1")
         .option("-p, --port [number]", "port", parsePort, 8000)
         .action(() => {
             PrismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
