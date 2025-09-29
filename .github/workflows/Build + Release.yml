@@ -35,7 +35,7 @@ jobs:
         run: |
           # building and compressing
           npm run build
-          tar -zcvf "./moneybook.tar.gz" -C "dist" index.js
+          tar -zcvf "./moneybook.tar.gz" -C "dist" .
 
           # delete all releases and their tags
           gh release list | awk -F '\t' '{print $3}' | while read -r line; do gh release delete --yes --cleanup-tag "$line"; done
