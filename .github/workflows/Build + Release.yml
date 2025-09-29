@@ -23,15 +23,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@main
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@latest
+        uses: actions/setup-node@main
         with:
           node-version: '*'
 
       - name: Remove old Releases
-        uses: dev-drprasad/delete-older-releases@latest
+        uses: dev-drprasad/delete-older-releases@main
         with:
           keep_latest: 0
           delete_tags: true
@@ -44,7 +44,7 @@ jobs:
           tar -zcvf "./moneybook.tar.gz" -C "dist" index.js
 
       - name: Release
-        uses: ncipollo/release-action@latest
+        uses: ncipollo/release-action@main
         with:
           artifacts: "moneybook.tar.gz"
           tag: "latest"
