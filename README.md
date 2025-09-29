@@ -13,6 +13,7 @@
 apt update && apt install -y nodejs curl
 
 # download and install compiled files
+mkdir -p /usr/local/bin/moneybook
 curl -sL "https://github.com/gek64/moneybook/releases/download/latest/moneybook.tar.gz" | tar -zxvC /usr/local/bin/moneybook
 
 # run test
