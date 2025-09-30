@@ -7,8 +7,12 @@ import * as product from "./internal/router/product"
 import {PrismaMariaDb} from "@prisma/adapter-mariadb"
 import {InvalidArgumentError, program} from "commander"
 
-const adapter = new PrismaMariaDb("mysql://root:root@localhost:3306/moneybook")
-const PrismaDBAdapter = {adapter}
+// js engine
+// const adapter = new PrismaMariaDb("mysql://root:root@localhost:3306/moneybook")
+// const PrismaDBAdapter = {adapter}
+
+// rust engine
+const PrismaDBAdapter = {datasources: {db: {url: ""}}}
 
 function parsePort(value: string) {
     const parsedValue = parseInt(value)
@@ -27,7 +31,11 @@ function main() {
         .option("-a, --address [string]", "ip address", "127.0.0.1")
         .option("-p, --port [number]", "port", parsePort, 8000)
         .action(() => {
-            PrismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
+            // js engine
+            // PrismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
+
+            // rust engine
+            PrismaDBAdapter.datasources.db.url = program.opts().database
         })
     program.parse()
 

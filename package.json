@@ -8,13 +8,13 @@
     "update": "npx -y pnpm update",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
-    "start": "ts-node main -d mysql://root:root@localhost:3306/moneybook",
+    "start": "ts-node main -d mysql://root:root@localhost:3306/moneybook -a 0.0.0.0 -p 8000",
     "build": "node build",
     "clean": "tsc --build --clean"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^6.16.2",
-    "@prisma/client": "^6.16.2",
+    "@prisma/adapter-mariadb": "^6.16.3",
+    "@prisma/client": "^6.16.3",
     "commander": "^14.0.1",
     "cors": "^2.8.5",
     "express": "^5.1.0"
@@ -22,10 +22,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.0",
     "@vercel/ncc": "^0.38.4",
     "pnpm": "^10.17.1",
-    "prisma": "^6.16.2",
+    "prisma": "^6.16.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

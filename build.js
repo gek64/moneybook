@@ -31,7 +31,6 @@ function rm(path) {
     }
 }
 
-
 function build() {
     run("npx -y pnpm install")
     run("npx prisma generate")
