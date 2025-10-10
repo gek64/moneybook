@@ -1,6 +1,5 @@
 import express from "express"
-import {PrismaDBAdapter} from "../../../main"
-import {PrismaClient} from "../../../prisma/generated/client/client"
+import {prisma} from "../../../main"
 
 interface IdQuery {
     id: string
@@ -13,7 +12,6 @@ interface IdsQuery {
 
 async function DeleteTransaction(req: express.Request<any, any, any, IdQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaDBAdapter)
 
     // 先删除交易-商品关系表中的关系数据
     await prisma.productOnTransaction.deleteMany({
@@ -43,7 +41,6 @@ async function DeleteTransaction(req: express.Request<any, any, any, IdQuery>, r
 
 async function DeleteTransactions(req: express.Request<any, any, any, IdsQuery>, res: express.Response, next: express.NextFunction) {
     const query = req.query
-    const prisma = new PrismaClient(PrismaDBAdapter)
 
     // query.ids 为字符串时转换为单元素数组, 为数组时无改变
     if (query.ids === undefined) {

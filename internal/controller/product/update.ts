@@ -1,11 +1,9 @@
 import express from "express"
-import {PrismaDBAdapter} from "../../../main"
-import {PrismaClient} from "../../../prisma/generated/client/client"
+import {prisma} from "../../../main"
 import {ProductModel} from "../../../prisma/generated/client/models"
 
 async function UpdateProduct(req: express.Request<any, any, ProductModel, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
-    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.product.update({
         where: {

@@ -1,6 +1,5 @@
 import express from "express"
-import {PrismaDBAdapter} from "../../../main"
-import {PrismaClient} from "../../../prisma/generated/client/client"
+import {prisma} from "../../../main"
 
 interface IdsStatusBody {
     ids: string[],
@@ -9,7 +8,6 @@ interface IdsStatusBody {
 
 async function PatchTransactionsStatus(req: express.Request<any, any, IdsStatusBody, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
-    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.updateMany({
         where: {

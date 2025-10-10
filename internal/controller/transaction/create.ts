@@ -1,13 +1,11 @@
 import express from "express"
-import {PrismaDBAdapter} from "../../../main"
-import {PrismaClient} from "../../../prisma/generated/client/client"
+import {prisma} from "../../../main"
 import {TransactionModel} from "../../../prisma/generated/client/models"
 
 type TransactionWithProductIds = TransactionModel & { productIds?: string[] }
 
 async function CreateTransaction(req: express.Request<any, any, TransactionWithProductIds, any>, res: express.Response, next: express.NextFunction) {
     const body = req.body
-    const prisma = new PrismaClient(PrismaDBAdapter)
 
     await prisma.transaction.create({
         data: {

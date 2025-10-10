@@ -1,18 +1,36 @@
 import express from "express"
 import cors from "cors"
+import {PrismaMariaDb} from "@prisma/adapter-mariadb"
 import * as account from "./internal/router/account"
 import * as type from "./internal/router/type"
 import * as transaction from "./internal/router/transaction"
 import * as product from "./internal/router/product"
-import {PrismaMariaDb} from "@prisma/adapter-mariadb"
+import {PrismaClient} from "./prisma/generated/client/client"
 import {InvalidArgumentError, program} from "commander"
 
 // js engine
-// const adapter = new PrismaMariaDb("mysql://root:root@localhost:3306/moneybook")
-// const PrismaDBAdapter = {adapter}
+const adapter = new PrismaMariaDb("")
+const prismaDBAdapter = {adapter}
 
 // rust engine
-const PrismaDBAdapter = {datasources: {db: {url: ""}}}
+// const prismaDBAdapter = {datasources: {db: {url: ""}}}
+
+// command line arguments
+program
+    .requiredOption("-d, --database <string>", "database source url")
+    .option("-a, --address [string]", "ip address", "127.0.0.1")
+    .option("-p, --port [number]", "port", parsePort, 8000)
+    .action(() => {
+        // js engine
+        prismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
+
+        // rust engine
+        // prismaDBAdapter.datasources.db.url = program.opts().database
+    })
+program.parse()
+
+// prisma client
+const prisma = new PrismaClient(prismaDBAdapter)
 
 function parsePort(value: string) {
     const parsedValue = parseInt(value)
@@ -25,20 +43,6 @@ function parsePort(value: string) {
 }
 
 function main() {
-    // 处理命令行参数
-    program
-        .requiredOption("-d, --database <string>", "database source url")
-        .option("-a, --address [string]", "ip address", "127.0.0.1")
-        .option("-p, --port [number]", "port", parsePort, 8000)
-        .action(() => {
-            // js engine
-            // PrismaDBAdapter.adapter = new PrismaMariaDb(program.opts().database)
-
-            // rust engine
-            PrismaDBAdapter.datasources.db.url = program.opts().database
-        })
-    program.parse()
-
     // express
     const app = express()
 
@@ -61,5 +65,5 @@ function main() {
 main()
 
 export {
-    PrismaDBAdapter
+    prisma
 }
